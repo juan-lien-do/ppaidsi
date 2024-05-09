@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<AnchorPane prefHeight="200.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dsi.utn.ppai.inicio.PantallaMain">
+ <children>
+     <Circle fill="#ff1f1f" layoutX="150.0" layoutY="94.0" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+     <Line endY="22.0" layoutX="150.0" layoutY="55.0" startY="-7.0" stroke="RED" strokeWidth="5.0" />
+     <Button layoutX="130.0" layoutY="135.0" mnemonicParsing="false" onAction="#cerrarVentana" text="Salir" />
+      <Label layoutX="70.0" layoutY="109.0" text="Caso de uso no implementado :(" />
+ </children>
+</AnchorPane>
