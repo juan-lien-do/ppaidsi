@@ -1,6 +1,7 @@
 package dsi.utn.ppai.inicio;
 
 import dsi.utn.ppai.PpaiApplication;
+import dsi.utn.ppai.pantalla.PantallaImportarNovedades;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import lombok.Getter;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
@@ -22,19 +24,33 @@ import java.util.ResourceBundle;
 public class PantallaMain implements Initializable {
     @FXML
     private Button botonCTA;
-
-    private ConfigurableApplicationContext applicationContext;
+    @Getter
+    private static Stage stage;
+    @Getter
+    private static ConfigurableApplicationContext applicationContext;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.applicationContext = new SpringApplicationBuilder(PpaiApplication.class).run();
+        PantallaMain.applicationContext = new SpringApplicationBuilder(PpaiApplication.class).run();
+    }
 
+    public static void volverAInicio(Stage stage) throws IOException {
 
+        PantallaMain.stage = stage;
+        // cargamos la pantalla principal
+        FXMLLoader loader = new FXMLLoader(PpaiApplication.class.getResource("/templates/main.fxml"));
+
+        loader.setControllerFactory(PantallaMain.getApplicationContext()::getBean);
+        Scene escena = new Scene(loader.load());
+        FXMain.getStage().setScene(escena);
+        stage.show();
     }
 
     @FXML
-    private void opcionImportarNovedades(){
-        Stage newStage = new Stage();
+    public static void opcionImportarNovedades(Stage stage) throws IOException {
+
+        PantallaImportarNovedades.opcionImportarVino(stage);
+
         FXMLLoader loader = new FXMLLoader(PpaiApplication.class.getResource("/templates/importarNovedades.fxml"));
 
         loader.setControllerFactory(applicationContext::getBean);
@@ -45,8 +61,8 @@ public class PantallaMain implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        newStage.setScene(escena);
-        newStage.show();
+        stage.setScene(escena);
+        stage.show();
     }
 
     //una funcion para levantar los otros casos de uso del administrador
@@ -69,5 +85,10 @@ public class PantallaMain implements Initializable {
     public void cerrarVentana(ActionEvent event){
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.close();
+    }
+
+    public void opcionImportarNovedades(ActionEvent event) throws IOException {
+        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        PantallaMain.opcionImportarNovedades(stage);
     }
 }

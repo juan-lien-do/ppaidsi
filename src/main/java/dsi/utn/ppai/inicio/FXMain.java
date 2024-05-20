@@ -8,14 +8,21 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
+
+//
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
 public class FXMain extends Application {
     private ConfigurableApplicationContext applicationContext;
+
+    @Getter
+    private static Stage stage;
 
     @Override
     public void init(){
@@ -25,6 +32,7 @@ public class FXMain extends Application {
     // Un stage tiene adentro muchas Scenes
     @Override
     public void start(Stage stage) throws Exception {
+        FXMain.stage = stage;
         // cargamos la pantalla principal
         FXMLLoader loader = new FXMLLoader(PpaiApplication.class.getResource("/templates/main.fxml"));
 
@@ -33,13 +41,7 @@ public class FXMain extends Application {
         stage.setScene(escena);
         stage.show();
 
-        Button btn2 = new Button("Escena 2");
-        btn2.setOnAction(event -> {
-            System.out.println("lol");
-            StackPane root2 = new StackPane();
-            Scene scene2 = new Scene(root2, 300, 200);
-            stage.setScene(scene2);
-        });
+
 
         /*
         Button btn2 = new Button("Escena 2");

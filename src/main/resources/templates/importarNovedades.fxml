@@ -16,7 +16,7 @@
             <Font size="22.0" />
          </font>
       </Label>
-      <Button layoutX="381.0" layoutY="508.0" mnemonicParsing="false" onAction="#cerrarVentana" text="Salir" />
+      <Button layoutX="381.0" layoutY="508.0" mnemonicParsing="false" onAction="#volverAtras" text="Volver" />
       <TableView fx:id="bodegasTabla" layoutX="285.0" layoutY="217.0" prefHeight="200.0" prefWidth="231.0">
         <columns>
           <TableColumn fx:id="nombreBodegaColumna" prefWidth="230.0" text="nombre" />
