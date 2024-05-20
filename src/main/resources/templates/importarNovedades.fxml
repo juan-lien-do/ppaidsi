@@ -5,22 +5,32 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dsi.utn.ppai.pantalla.PantallaImportarNovedades">
-   <children>
-      <Label layoutX="288.0" layoutY="87.0" text="Seleccione las bodegas">
-         <font>
-            <Font size="22.0" />
-         </font>
-      </Label>
-      <Label layoutX="346.0" layoutY="119.0" text="a actualizar">
-         <font>
-            <Font size="22.0" />
-         </font>
-      </Label>
-      <Button layoutX="381.0" layoutY="508.0" mnemonicParsing="false" onAction="#volverAtras" text="Volver" />
-      <TableView fx:id="bodegasTabla" layoutX="285.0" layoutY="217.0" prefHeight="200.0" prefWidth="231.0">
-        <columns>
-          <TableColumn fx:id="nombreBodegaColumna" prefWidth="230.0" text="nombre" />
-        </columns>
-      </TableView>
-   </children>
+    <children>
+        <AnchorPane fx:id="pantallaEspera" layoutX="153.0" layoutY="249.0">
+         <children>
+            <Label text="Por favor espere mientras estamos buscando :)">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+        </AnchorPane>
+        <AnchorPane fx:id="pantallaSeleccionBodega" visible="false">
+            <children>
+                <Label layoutX="288.0" layoutY="87.0" text="Seleccione las bodegas">
+                    <font>
+                        <Font size="22.0" />
+                    </font>
+                </Label>
+                <Label layoutX="346.0" layoutY="119.0" text="a actualizar">
+                    <font>
+                        <Font size="22.0" />
+                    </font>
+                </Label>
+                <Button layoutX="301.0" layoutY="384.0" mnemonicParsing="false" onAction="#tomarSeleccionBodega" text="Consumir datos de bodega" />
+                <Button layoutX="356.0" layoutY="429.0" mnemonicParsing="false" onAction="#volverAtras" text="Volver" />
+            <ListView fx:id="listView" layoutX="281.0" layoutY="167.0" prefHeight="200.0" prefWidth="200.0" />
+            </children>
+        </AnchorPane>
+    </children>
 </AnchorPane>
