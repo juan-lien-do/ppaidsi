@@ -9,18 +9,22 @@ import java.util.List;
 
 @Getter
 public class FalsaBaseDeDatos {
-    public List<Bodega> bodegas;
-    public List<Vino> vinos;
-    public List<Maridaje> maridajes;
-    public List<TipoUva> tiposUva;
-    public List<Enofilo> enofilos;
-    public static FalsaBaseDeDatos falsaBaseDeDatos;
+    private List<Bodega> bodegas;
+    private List<Vino> vinos;
+    private List<Maridaje> maridajes;
+    private List<TipoUva> tiposUva;
+    private List<Enofilo> enofilos;
+    private static FalsaBaseDeDatos falsaBaseDeDatos;
 
     public static FalsaBaseDeDatos getInstance() {
         if (falsaBaseDeDatos == null) {
             falsaBaseDeDatos = new FalsaBaseDeDatos();
         }
         return falsaBaseDeDatos;
+    }
+
+    public void agregarNuevoVino(Vino vino){
+        this.vinos.add(vino);
     }
 
     private FalsaBaseDeDatos() {
@@ -94,7 +98,16 @@ public class FalsaBaseDeDatos {
         vino9.setBodega(bodegasXD.get(0));bodegasXD.get(0).agregarVino(vino9);
 
         this.bodegas = bodegasXD;
-        this.vinos = List.of(vino1, vino2, vino3, vino4, vino5, vino6, vino7, vino8, vino9);
+        this.vinos = new ArrayList<>();
+        this.vinos.add(vino1);
+        this.vinos.add(vino2);
+        this.vinos.add(vino3);
+        this.vinos.add(vino4);
+        this.vinos.add(vino5);
+        this.vinos.add(vino6);
+        this.vinos.add(vino7);
+        this.vinos.add(vino8);
+        this.vinos.add(vino9);
 
         List<Enofilo> enofilosXD = new ArrayList<>();
         enofilosXD.add(new Enofilo("Spinetta", "Luis Alberto", usuariosXD.get(0)));

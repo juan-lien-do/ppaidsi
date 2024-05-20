@@ -22,4 +22,5 @@ public class VinoDataHolder {
     private String descripcionVarietal;
     private int porcentajeComposicionVarietal;
     private String nombreUva;
+    private boolean actualizable;
 }

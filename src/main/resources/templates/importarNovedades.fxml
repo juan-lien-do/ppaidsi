@@ -32,5 +32,32 @@
             <ListView fx:id="listView" layoutX="281.0" layoutY="167.0" prefHeight="200.0" prefWidth="200.0" />
             </children>
         </AnchorPane>
+        <AnchorPane fx:id="pantallaResumen" visible="false">
+         <children>
+            <Label layoutX="82.0" layoutY="9.0" text="Aquí está el resumen de los nuevos vinos!" underline="true">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+            <Label fx:id="textoNovedad" layoutX="46.0" layoutY="76.0" text="Texto de ejemplo">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+             <ListView fx:id="listViewVinosNuevos" layoutX="415.0" layoutY="167.0" prefHeight="200.0" prefWidth="200.0" />
+             <ListView fx:id="listViewVinosCambiados" layoutX="148.0" layoutY="167.0" prefHeight="200.0" prefWidth="200.0" />
+             <Button layoutX="356.0" layoutY="429.0" mnemonicParsing="false" onAction="#volverAtras" text="Volver" />
+            <Label layoutX="175.0" layoutY="133.0" text="Vinos actualizados">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="462.0" layoutY="133.0" text="Vinos nuevos">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+        </AnchorPane>
     </children>
 </AnchorPane>

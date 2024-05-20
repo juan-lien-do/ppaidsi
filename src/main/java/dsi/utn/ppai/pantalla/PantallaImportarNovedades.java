@@ -37,6 +37,14 @@ public class PantallaImportarNovedades implements Initializable {
     private AnchorPane pantallaSeleccionBodega;
     @FXML
     private ListView<String> listView;
+    @FXML
+    private AnchorPane pantallaResumen;
+    @FXML
+    private Label textoNovedad;
+    @FXML
+    private ListView<String> listViewVinosNuevos;
+    @FXML
+    private ListView<String> listViewVinosCambiados;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -98,5 +106,14 @@ public class PantallaImportarNovedades implements Initializable {
     public void volverAtras(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         PantallaMain.volverAInicio(stage);
+    }
+
+    public void mostrarResumenDeVinos(String nombre, List<String> actualizados, List<String> nuevos) {
+        this.pantallaEspera.setVisible(false);
+        this.pantallaSeleccionBodega.setVisible(false);
+        this.pantallaResumen.setVisible(true);
+        this.textoNovedad.setText(new StringBuilder().append("En la bodega ").append(nombre).append(" hay ").append(String.valueOf((actualizados.size() + nuevos.size()))).append(" vinos nuevos.").toString());
+        listViewVinosCambiados.getItems().addAll(actualizados);
+        listViewVinosNuevos.getItems().addAll(nuevos);
     }
 }
