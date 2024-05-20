@@ -8,7 +8,6 @@ import dsi.utn.ppai.utilidades.FalsaBaseDeDatos;
 import dsi.utn.ppai.utilidades.VinoDataHolder;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -20,6 +19,7 @@ public class ControladorImportarNovedades {
     private PantallaImportarNovedades pantallaImportarNovedades;
     private List<String> nombresBodegasTemp;
     private final InterfazAPI interfazAPI;
+
     public ControladorImportarNovedades(PantallaImportarNovedades pantallaImportarNovedades) {
         this.pantallaImportarNovedades = pantallaImportarNovedades;
         this.interfazAPI = PantallaMain.getApplicationContext().getBean(InterfazAPI.class);
@@ -31,15 +31,18 @@ public class ControladorImportarNovedades {
 
     private void buscarBodegas() {
         List<Bodega> bodegasTemp = FalsaBaseDeDatos.getInstance().getBodegas();
-        LocalDate fechaActual = this.getDate();
+        LocalDate fechaActual = getDate();
         List<String> nombresBodegasTemp = new ArrayList<>();
         for (Bodega x : bodegasTemp) {
-            if (x.esActualizable(fechaActual)){
+            if (x.esActualizable(fechaActual)) {
                 nombresBodegasTemp.add(x.getNombre());
             }
         }
-        pantallaImportarNovedades.mostrarBodegas(nombresBodegasTemp);
-
+        if (nombresBodegasTemp.isEmpty()) {
+            pantallaImportarNovedades.noHayBodegas();
+        } else {
+            pantallaImportarNovedades.mostrarBodegas(nombresBodegasTemp);
+        }
     }
 
     private LocalDate getDate() {
@@ -48,5 +51,6 @@ public class ControladorImportarNovedades {
 
     public void tomarSeleccionBodega(String nombre) {
         List<VinoDataHolder> vinosTemp = interfazAPI.consultarNovedades(nombre);
+        // Aquí puedes agregar la lógica para manejar los vinos obtenidos
     }
 }

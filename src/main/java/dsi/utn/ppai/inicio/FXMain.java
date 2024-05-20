@@ -17,7 +17,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 
 //
-//@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
+@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
 public class FXMain extends Application {
     private ConfigurableApplicationContext applicationContext;
 
