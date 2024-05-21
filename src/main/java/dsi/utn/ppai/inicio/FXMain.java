@@ -41,26 +41,6 @@ public class FXMain extends Application {
         stage.setScene(escena);
         stage.show();
 
-
-
-        /*
-        Button btn2 = new Button("Escena 2");
-        btn2.setTranslateX(10);
-        btn2.setOnAction(event -> {
-            System.out.println("lol");
-            StackPane root2 = new StackPane();
-            root2.getChildren().add(new Button("Soy la escena 2"));
-            Scene scene2 = new Scene(root2, 300, 200);
-            stage.setScene(scene2);
-        });
-
-        StackPane root = new StackPane();
-        root.getChildren().add(btn2);
-
-        Scene scene = new Scene(root, 300, 200);
-        stage.setTitle("Cambio de Escenas");
-        stage.setScene(scene);
-        stage.show();*/
     }
 
     @Override

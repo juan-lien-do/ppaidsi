@@ -32,6 +32,8 @@ public class PantallaImportarNovedades implements Initializable {
     private ConfigurableApplicationContext applicationContext;
 
     @FXML
+    private AnchorPane pantallaNoHayBodegas;
+    @FXML
     private AnchorPane pantallaEspera;
     @FXML
     private AnchorPane pantallaSeleccionBodega;
@@ -86,16 +88,11 @@ public class PantallaImportarNovedades implements Initializable {
     }
 
     public void noHayBodegas() {
-        try {
-            Stage newStage = new Stage();
-            FXMLLoader loader = new FXMLLoader(PpaiApplication.class.getResource("/templates/noHayBodegas.fxml"));
-            loader.setControllerFactory(PantallaMain.getApplicationContext()::getBean);
-            Scene escena = new Scene(loader.load());
-            newStage.setScene(escena);
-            newStage.show();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        pantallaResumen.setVisible(false);
+        pantallaSeleccionBodega.setVisible(false);
+        pantallaEspera.setVisible(false);
+        pantallaNoHayBodegas.setVisible(true);
+
     }
 
     public void cerrarVentana(ActionEvent event) {

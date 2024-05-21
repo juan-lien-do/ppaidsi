@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import lombok.Getter;
@@ -20,8 +21,6 @@ import java.util.ResourceBundle;
 
 @Component
 public class PantallaMain implements Initializable {
-    @FXML
-    private Button botonCTA;
     @Getter
     private static Stage stage;
     @Getter
@@ -48,16 +47,13 @@ public class PantallaMain implements Initializable {
     }
 
     public void opcionNoImplementada() {
-        try {
-            Stage newStage = new Stage();
-            FXMLLoader loader = new FXMLLoader(PpaiApplication.class.getResource("/templates/CUNoImplementado.fxml"));
-            loader.setControllerFactory(PantallaMain.getApplicationContext()::getBean);
-            Scene escena = new Scene(loader.load());
-            newStage.setScene(escena);
-            newStage.show();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("No disponible");
+        alert.setHeaderText(null);
+        alert.setContentText("Caso de uso no implementado.");
+        alert.showAndWait();
+
     }
 
     public void cerrarVentana(ActionEvent event) {

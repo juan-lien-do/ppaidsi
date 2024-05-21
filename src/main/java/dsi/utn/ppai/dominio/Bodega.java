@@ -40,6 +40,10 @@ public class Bodega {
     }
 
     public boolean esActualizable(LocalDate fechaActual) {
+        return this.validarFechasAct(fechaActual);
+    }
+
+    public boolean validarFechasAct(LocalDate fechaActual){
         return this.getUltimaActualizacion().plusDays(this.getPeriodoActualizacion()).isBefore(fechaActual);
     }
 

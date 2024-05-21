@@ -48,8 +48,9 @@ public class ControladorImportarNovedades {
             pantallaImportarNovedades.noHayBodegas();
         } else {
             pantallaImportarNovedades.mostrarBodegas(nombresBodegasTemp);
+            this.bodegas = bodegasTemp;
         }
-        this.bodegas = bodegasTemp;
+
     }
 
     private LocalDate getDate() {
@@ -58,6 +59,7 @@ public class ControladorImportarNovedades {
 
     public void obtenerActualizaciones(String nombre) {
         this.vinoDataHolders = interfazAPI.consultarNovedades(nombre);
+
 
     }
 
@@ -68,6 +70,7 @@ public class ControladorImportarNovedades {
 
     public void tomarSeleccionBodega(String nombre) {
         this.obtenerActualizaciones(nombre);
+
         //ahora hay q setear la bodega seleccionada
         this.validarBodega(nombre);
         // y hacer cosas con los vinos
@@ -76,9 +79,12 @@ public class ControladorImportarNovedades {
         // act fecha bodega
         this.bodegaSeleccionada.actualizarFechaBodega(LocalDate.now());
         //mostrar cambios
+
         pantallaImportarNovedades.mostrarResumenDeVinos(bodegaSeleccionada.getNombre(),
                 this.vinoDataHolders.stream().filter(x-> x.isActualizable()).map(x -> x.getNombre()).toList(),
                 this.vinoDataHolders.stream().filter(x-> !x.isActualizable()).map(x -> x.getNombre()).toList());
+
+        // aca va lo que falta
     }
 
     private void crearVinosNuevos() {
