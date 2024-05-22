@@ -16,6 +16,7 @@ import java.util.Objects;
 @AllArgsConstructor
 public class Bodega {
     private float[] coordenadasUbicacion;
+    private String apiUrl;
     private String descripcion;
     private String historia;
     private String nombre;
@@ -28,6 +29,17 @@ public class Bodega {
     }
 
     ;
+
+    public Bodega(float[] coordenadasUbicacion, String apiUrl, String descripcion, String historia, String nombre, int periodoActualizacion, LocalDate ultimaActualizacion) {
+        this.coordenadasUbicacion = coordenadasUbicacion;
+        this.apiUrl = apiUrl;
+        this.descripcion = descripcion;
+        this.historia = historia;
+        this.nombre = nombre;
+        this.periodoActualizacion = periodoActualizacion;
+        this.ultimaActualizacion = ultimaActualizacion;
+        this.vinos = new ArrayList<>();
+    }
 
     public Bodega(float[] coordenadasUbicacion, String descripcion, String historia, String nombre, int periodoActualizacion, LocalDate ultimaActualizacion) {
         this.coordenadasUbicacion = coordenadasUbicacion;
@@ -54,11 +66,12 @@ public class Bodega {
     public void actualizarVinos(List<VinoDataHolder> vinoDataHolders) {
         for (Vino x : this.vinos) {
             for (VinoDataHolder y : vinoDataHolders) {
-                if (x.existeVino(y)) {
+                if (x.existeVino(y)) { // corregir firma del metodo para no pasar instancias
                     y.setActualizable(true);
+
                     x.setPrecioARS(y.getPrecioARS());
                     x.setNotaDeCataBodega(y.getNotaDeCataBodega());
-                    x.setFechaActualizacion(LocalDate.now());
+                    x.setFechaActualizacion(LocalDate.now()); // pasar este localdate como parametro
                 }
             }
         }

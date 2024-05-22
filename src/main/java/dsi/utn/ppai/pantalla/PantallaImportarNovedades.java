@@ -109,7 +109,9 @@ public class PantallaImportarNovedades implements Initializable {
         this.pantallaEspera.setVisible(false);
         this.pantallaSeleccionBodega.setVisible(false);
         this.pantallaResumen.setVisible(true);
-        this.textoNovedad.setText(new StringBuilder().append("En la bodega ").append(nombre).append(" hay ").append(String.valueOf((actualizados.size() + nuevos.size()))).append(" vinos nuevos.").toString());
+        this.textoNovedad.setText(new StringBuilder().append("En la bodega ")
+                .append(nombre).append(" hay ").append(String.valueOf((actualizados.size() + nuevos.size())))
+                .append(" vinos nuevos.").toString());
         listViewVinosCambiados.getItems().addAll(actualizados);
         listViewVinosNuevos.getItems().addAll(nuevos);
     }

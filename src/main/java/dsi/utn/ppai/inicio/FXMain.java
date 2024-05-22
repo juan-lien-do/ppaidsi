@@ -39,6 +39,7 @@ public class FXMain extends Application {
         loader.setControllerFactory(applicationContext::getBean);
         Scene escena = new Scene(loader.load());
         stage.setScene(escena);
+        stage.setTitle("");
         stage.show();
 
     }

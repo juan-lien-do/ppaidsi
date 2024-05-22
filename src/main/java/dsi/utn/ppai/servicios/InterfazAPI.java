@@ -20,9 +20,9 @@ public class InterfazAPI {
         try {
             RestTemplate template = new RestTemplate();
             ResponseEntity<VinoDataHolder[]> res = template.getForEntity(
-                    "http://localhost:8082/bodegas/{nombre}",
-                    VinoDataHolder[].class,
-                    nombre
+                    "http://localhost:8082/bodegas/".concat(nombre),
+                    VinoDataHolder[].class
+
             );
             VinoDataHolder[] vinitos = res.getBody();
 

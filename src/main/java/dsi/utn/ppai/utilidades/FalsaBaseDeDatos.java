@@ -52,11 +52,11 @@ public class FalsaBaseDeDatos {
         usuariosXD.add(new Usuario("incorrecta2024_", "tina_patagonia", false));
 
         List<Bodega> bodegasXD = new ArrayList<>();
-        bodegasXD.add(new Bodega(new float[]{-23, 24}, "Es una bodega muy feliz", "Inicia en 1789",
+        bodegasXD.add(new Bodega(new float[]{-23, 24}, "bodegagenial.com/api/", "Es una bodega muy feliz", "Inicia en 1789",
                 "BodegaGenial", 14, LocalDate.now().minusDays(20)));
-        bodegasXD.add(new Bodega(new float[]{10, 20}, "Bodega con vista al mar", "Fundada en 1850",
+        bodegasXD.add(new Bodega(new float[]{10, 20}, "bodegamar.com/api/", "Bodega con vista al mar", "Fundada en 1850",
                 "BodegaMar", 14, LocalDate.now().minusDays(18)));
-        bodegasXD.add(new Bodega(new float[]{35, -45}, "Bodega en las montañas", "Establecida en 1900",
+        bodegasXD.add(new Bodega(new float[]{35, -45}, "bodegamontana.com/api/", "Bodega en las montañas", "Establecida en 1900",
                 "BodegaMontaña", 14, LocalDate.now().minusDays(10)));
 
         Vino vino1 = new Vino(1997, LocalDate.now().minusDays(60),

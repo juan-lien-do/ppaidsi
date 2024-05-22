@@ -2,45 +2,41 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="dsi.utn.ppai.inicio.PantallaMain">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dsi.utn.ppai.inicio.PantallaMain">
     <children>
         <AnchorPane>
             <children>
                 <Label layoutX="290.0" layoutY="63.0" prefHeight="26.0" prefWidth="257.0" text="Bienvenido de vuelta,">
                     <font>
-                        <Font name="Arial" size="22.0"/>
+                        <Font name="Arial" size="22.0" />
                     </font>
                 </Label>
                 <Label layoutX="325.0" layoutY="90.0" prefHeight="26.0" prefWidth="143.0" text="administrador.">
                     <font>
-                        <Font name="Arial" size="22.0"/>
+                        <Font name="Arial" size="22.0" />
                     </font>
                 </Label>
-                <Button fx:id="botonCTA" layoutX="158.0" layoutY="180.0" mnemonicParsing="false"
-                        onAction="#opcionImportarNovedades" text="Importar actualizacion de vinos de bodega"
-                        textFill="#a20021">
+                <Button fx:id="botonCTA" layoutX="158.0" layoutY="180.0" mnemonicParsing="false" onAction="#opcionImportarNovedades" text="Importar actualizacion de vinos de bodega" textFill="#a20021">
                     <font>
-                        <Font size="24.0"/>
+                        <Font size="24.0" />
                     </font>
                 </Button>
-                <Button layoutX="158.0" layoutY="240.0" mnemonicParsing="false" onAction="#opcionNoImplementada"
-                        text="Validar identidad de sommelier" textFill="#a20021">
+                <Button layoutX="158.0" layoutY="240.0" mnemonicParsing="false" onAction="#opcionNoImplementada" text="Validar identidad de sommelier" textFill="#a20021">
                     <font>
-                        <Font size="24.0"/>
+                        <Font size="24.0" />
                     </font>
                 </Button>
-                <Button layoutX="158.0" layoutY="300.0" mnemonicParsing="false" onAction="#opcionNoImplementada"
-                        text="Registrar vinos" textFill="#a20021">
+                <Button layoutX="158.0" layoutY="300.0" mnemonicParsing="false" onAction="#opcionNoImplementada" text="Registrar vinos" textFill="#a20021">
                     <font>
-                        <Font size="24.0"/>
+                        <Font size="24.0" />
                     </font>
                 </Button>
                 <Button layoutX="350.0" layoutY="540.0" mnemonicParsing="false" onAction="#cerrarVentana" text="Salir">
                     <font>
-                        <Font size="20.0"/>
+                        <Font size="20.0" />
                     </font>
                 </Button>
             </children>
@@ -49,9 +45,12 @@
             <children>
                 <Label text="Bonvino">
                     <font>
-                        <Font size="24.0"/>
+                        <Font size="24.0" />
                     </font>
                 </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="19.0" layoutX="80.0" layoutY="43.0" stroke="BLACK" strokeType="INSIDE" width="45.0" />
+            <Ellipse fill="#ff1f84" layoutX="101.0" layoutY="53.0" radiusX="9.0" radiusY="18.0" stroke="BLACK" strokeType="INSIDE" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="35.0" layoutY="35.0" stroke="BLACK" strokeType="INSIDE" width="102.0" />
             </children>
         </AnchorPane>
     </children>

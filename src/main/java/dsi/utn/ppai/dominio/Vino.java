@@ -34,11 +34,16 @@ public class Vino {
         this.precioARS = x.getPrecioARS();
         this.fechaActualizacion = LocalDate.now();
         this.notaDeCataBodega = x.getNotaDeCataBodega();
-        this.varietales = new ArrayList<>();
-        this.varietales.add(new Varietal(null, x.getPorcentajeComposicionVarietal(), tipoUvaParticular));
+        this.varietales = crearVarietal(null, x.getPorcentajeComposicionVarietal(), tipoUvaParticular);
         this.maridajes = maridajeParticular;
         this.bodega = bodega;
         bodega.agregarVino(this);
+    }
+
+    private List<Varietal> crearVarietal(String descrip, int porcentaje, TipoUva tipoUvaParticular){
+        List<Varietal> varietals = new ArrayList<>();
+        varietals.add(new Varietal(descrip, porcentaje, tipoUvaParticular));
+        return varietals;
     }
 
     public Vino(int anada, LocalDate fechaActualizacion, String nombre, String notaDeCataBodega, float precioARS, List<Varietal> varietales, Bodega bodega) {

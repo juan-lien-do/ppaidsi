@@ -57,8 +57,9 @@ public class ControladorImportarNovedades {
         return LocalDate.now();
     }
 
-    public void obtenerActualizaciones(String nombre) {
-        this.vinoDataHolders = interfazAPI.consultarNovedades(nombre);
+    public void obtenerActualizaciones() {
+        String url = this.bodegaSeleccionada.getApiUrl();
+        this.vinoDataHolders = interfazAPI.consultarNovedades(url);
 
 
     }
@@ -69,15 +70,15 @@ public class ControladorImportarNovedades {
     }
 
     public void tomarSeleccionBodega(String nombre) {
-        this.obtenerActualizaciones(nombre);
-
-        //ahora hay q setear la bodega seleccionada
-        this.validarBodega(nombre);
+        //setear la bodega
+        this.buscarBodegaPorNombre(nombre);
+        //obtener actualizaciones
+        this.obtenerActualizaciones();
         // y hacer cosas con los vinos
         this.actualizarVinos();
         this.crearVinosNuevos();
         // act fecha bodega
-        this.bodegaSeleccionada.actualizarFechaBodega(LocalDate.now());
+        this.bodegaSeleccionada.actualizarFechaBodega(LocalDate.now()); // ponerle el atributo
         //mostrar cambios
 
         pantallaImportarNovedades.mostrarResumenDeVinos(bodegaSeleccionada.getNombre(),
@@ -118,14 +119,14 @@ public class ControladorImportarNovedades {
         for( Maridaje x : FalsaBaseDeDatos.getInstance().getMaridajes()){
             for(Maridaje y : maridajesP){
                 if (x.sosMaridaje(y.getNombre())){
-                    maridajesFinal.add(y);
+                    maridajesFinal.add(x);
                 }
             }
         }
         return maridajesFinal;
     }
 
-    private void validarBodega(String nombre) {
+    private void buscarBodegaPorNombre(String nombre) {
         for (Bodega x : this.bodegas) {
             if (x.existe(nombre)) {
                 this.bodegaSeleccionada = x;
