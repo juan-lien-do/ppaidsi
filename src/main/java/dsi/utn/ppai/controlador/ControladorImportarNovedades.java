@@ -1,12 +1,10 @@
 package dsi.utn.ppai.controlador;
 
-import dsi.utn.ppai.dominio.Bodega;
-import dsi.utn.ppai.dominio.Maridaje;
-import dsi.utn.ppai.dominio.TipoUva;
-import dsi.utn.ppai.dominio.Vino;
+import dsi.utn.ppai.dominio.*;
 import dsi.utn.ppai.inicio.PantallaMain;
 import dsi.utn.ppai.pantalla.PantallaImportarNovedades;
 import dsi.utn.ppai.servicios.InterfazAPI;
+import dsi.utn.ppai.servicios.InterfazNotificacionPush;
 import dsi.utn.ppai.utilidades.FalsaBaseDeDatos;
 import dsi.utn.ppai.utilidades.VinoDataHolder;
 import lombok.Getter;
@@ -25,10 +23,12 @@ public class ControladorImportarNovedades {
     private Bodega bodegaSeleccionada;
     private List<VinoDataHolder> vinoDataHolders;
     private List<Bodega> bodegas;
+    private final InterfazNotificacionPush interfazNotificacionPush;
 
     public ControladorImportarNovedades(PantallaImportarNovedades pantallaImportarNovedades) {
         this.pantallaImportarNovedades = pantallaImportarNovedades;
         this.interfazAPI = PantallaMain.getApplicationContext().getBean(InterfazAPI.class);
+        this.interfazNotificacionPush = PantallaMain.getApplicationContext().getBean(InterfazNotificacionPush.class);
     }
 
     public void importarVinos() {
@@ -82,15 +82,30 @@ public class ControladorImportarNovedades {
         //mostrar cambios
 
         pantallaImportarNovedades.mostrarResumenDeVinos(bodegaSeleccionada.getNombre(),
-                this.vinoDataHolders.stream().filter(x-> x.isActualizable()).map(x -> x.getNombre()).toList(),
-                this.vinoDataHolders.stream().filter(x-> !x.isActualizable()).map(x -> x.getNombre()).toList());
+                this.vinoDataHolders.stream().filter(x -> x.isActualizable()).map(x -> x.getNombre()).toList(),
+                this.vinoDataHolders.stream().filter(x -> !x.isActualizable()).map(x -> x.getNombre()).toList());
 
         // aca va lo que falta
+        buscarSeguidoresDeBodega();
+    }
+
+    private void buscarSeguidoresDeBodega() {
+        List<Enofilo> enofilos = FalsaBaseDeDatos.getInstance().getEnofilos();
+        List<String> nomEnofilos = new ArrayList<>();
+        for (Enofilo en : enofilos) {
+            if(en.seguisABodega(bodegaSeleccionada)){
+                nomEnofilos.add(en.getNombreUsuario());
+            }
+        }
+        for (String nombre : nomEnofilos){
+            this.interfazNotificacionPush.enviarNotificacion(nombre);
+        };
+
     }
 
     private void crearVinosNuevos() {
-        for(VinoDataHolder x : this.vinoDataHolders){
-            if (!x.isActualizable()){
+        for (VinoDataHolder x : this.vinoDataHolders) {
+            if (!x.isActualizable()) {
                 List<Maridaje> maridajeParticular = this.buscarMaridaje(x.getMaridajes());
                 TipoUva tipoUvaParticular = this.buscarTipoDeUva(x.getNombreUva());
                 crearVino(x, tipoUvaParticular, maridajeParticular);
@@ -105,8 +120,8 @@ public class ControladorImportarNovedades {
     }
 
     private TipoUva buscarTipoDeUva(String nombreUva) {
-        for(TipoUva x : FalsaBaseDeDatos.getInstance().getTiposUva()){
-            if(x.sosTipoDeUva(nombreUva)){
+        for (TipoUva x : FalsaBaseDeDatos.getInstance().getTiposUva()) {
+            if (x.sosTipoDeUva(nombreUva)) {
                 return x;
             }
         }
@@ -114,11 +129,11 @@ public class ControladorImportarNovedades {
     }
 
     private List<Maridaje> buscarMaridaje(List<Maridaje> maridajesP) {
-        if(maridajesP == null) return null;
+        if (maridajesP == null) return null;
         List<Maridaje> maridajesFinal = new ArrayList<>();
-        for( Maridaje x : FalsaBaseDeDatos.getInstance().getMaridajes()){
-            for(Maridaje y : maridajesP){
-                if (x.sosMaridaje(y.getNombre())){
+        for (Maridaje x : FalsaBaseDeDatos.getInstance().getMaridajes()) {
+            for (Maridaje y : maridajesP) {
+                if (x.sosMaridaje(y.getNombre())) {
                     maridajesFinal.add(x);
                 }
             }

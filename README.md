@@ -16,7 +16,7 @@ https://www.youtube.com/watch?v=3pKlE2k0A-c
 
 ## Como se ejecuta
 
-Desde IntelliJIDea, ir a /ppai/src/main/java/dsi.utn.ppai.inicio/ y ejecutar la clase FXMain
+Desde IntelliJIDea, ir a /ppai/src/main/java/dsi.utn.ppai.inicio/ y ejecutar la clase PpaiApplication
 
 ## sobre el proyecto
 

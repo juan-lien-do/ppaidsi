@@ -13,12 +13,12 @@ public class Siguiendo {
     private Bodega bodega;
     private Enofilo enofilo;
 
-    private boolean sosDeBodega() {
-        return (bodega != null);
+    public boolean sosDeBodega(Bodega bod) {
+        return (bodega == bod);
     }
 
-    private boolean sosDeAmigo() {
-        return (enofilo != null);
+    public boolean sosDeAmigo(Enofilo enof) {
+        return (enofilo == enof);
     }
 
     public Siguiendo(LocalDate fechaFin, LocalDate fechaInicio, Bodega bodega) {
