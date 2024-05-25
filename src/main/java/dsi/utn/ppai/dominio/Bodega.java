@@ -28,7 +28,6 @@ public class Bodega {
         vinos.add(vino);
     }
 
-    ;
 
     public Bodega(float[] coordenadasUbicacion, String apiUrl, String descripcion, String historia, String nombre, int periodoActualizacion, LocalDate ultimaActualizacion) {
         this.coordenadasUbicacion = coordenadasUbicacion;
@@ -55,7 +54,7 @@ public class Bodega {
         return this.validarFechasAct(fechaActual);
     }
 
-    public boolean validarFechasAct(LocalDate fechaActual){
+    public boolean validarFechasAct(LocalDate fechaActual) {
         return this.getUltimaActualizacion().plusDays(this.getPeriodoActualizacion()).isBefore(fechaActual);
     }
 
@@ -63,20 +62,19 @@ public class Bodega {
         return (Objects.equals(nombre, this.nombre));
     }
 
-    public void actualizarVinos(List<VinoDataHolder> vinoDataHolders) {
+    public void actualizarVinos(List<VinoDataHolder> vinoDataHolders, LocalDate fechaActual) {
         for (Vino x : this.vinos) {
             for (VinoDataHolder y : vinoDataHolders) {
-                if (x.existeVino(y)) { // corregir firma del metodo para no pasar instancias
+                if (x.existeVino(y.getNombre(), y.getAnada())) {
                     y.setActualizable(true);
 
+                    x.setImagenEtiqueta(y.getImagenEtiqueta());
                     x.setPrecioARS(y.getPrecioARS());
                     x.setNotaDeCataBodega(y.getNotaDeCataBodega());
-                    x.setFechaActualizacion(LocalDate.now()); // pasar este localdate como parametro
+                    x.setFechaActualizacion(fechaActual);
                 }
             }
         }
-
-
     }
 
     public void actualizarFechaBodega(LocalDate now) {

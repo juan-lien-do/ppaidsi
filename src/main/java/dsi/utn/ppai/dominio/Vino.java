@@ -16,6 +16,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @ToString
 public class Vino {
+    private String imagenEtiqueta;
     private int anada;
     private LocalDate fechaActualizacion;
     private String nombre;
@@ -25,25 +26,29 @@ public class Vino {
     private Bodega bodega;
     private List<Maridaje> maridajes;
 
-    public boolean existeVino(VinoDataHolder x){
-        return (Objects.equals(this.getNombre(), x.getNombre()) && this.getAnada() == x.getAnada());
+    public boolean existeVino(String xNombre, int xAnada){
+        return (Objects.equals(this.getNombre(), xNombre) && this.getAnada() == xAnada);
     }
-    public Vino(VinoDataHolder x, TipoUva tipoUvaParticular, List<Maridaje> maridajeParticular, Bodega bodega){
+    public Vino(VinoDataHolder x, List<TipoUva> tipoUvaParticular, List<Maridaje> maridajeParticular, Bodega bodega){
         this.nombre = x.getNombre();
         this.anada = x.getAnada();
         this.precioARS = x.getPrecioARS();
         this.fechaActualizacion = LocalDate.now();
         this.notaDeCataBodega = x.getNotaDeCataBodega();
-        this.varietales = crearVarietal(null, x.getPorcentajeComposicionVarietal(), tipoUvaParticular);
+        List<Varietal> varietalTemp = new ArrayList<>();
+        for (int i = 0; i < tipoUvaParticular.size(); i++) {
+            varietalTemp.add(crearVarietal(x.getDescripcionesVarietal().get(i),
+                    x.getPorcentajesComposicionVarietal().get(i),
+                    tipoUvaParticular.get(i)));
+        }
+        this.varietales = varietalTemp;
         this.maridajes = maridajeParticular;
         this.bodega = bodega;
         bodega.agregarVino(this);
     }
 
-    private List<Varietal> crearVarietal(String descrip, int porcentaje, TipoUva tipoUvaParticular){
-        List<Varietal> varietals = new ArrayList<>();
-        varietals.add(new Varietal(descrip, porcentaje, tipoUvaParticular));
-        return varietals;
+    private Varietal crearVarietal(String descrip, int porcentaje, TipoUva tipoUvaParticular){
+        return new Varietal(descrip, porcentaje, tipoUvaParticular);
     }
 
     public Vino(int anada, LocalDate fechaActualizacion, String nombre, String notaDeCataBodega, float precioARS, List<Varietal> varietales, Bodega bodega) {

@@ -1,7 +1,5 @@
 package dsi.utn.ppai.utilidades;
 
-import dsi.utn.ppai.dominio.Bodega;
-import dsi.utn.ppai.dominio.Maridaje;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,11 +14,13 @@ public class VinoDataHolder {
     private int anada;
     private LocalDate fechaActualizacion;
     private String nombre;
+    private String imagenEtiqueta;
     private String notaDeCataBodega;
     private float precioARS;
-    private List<Maridaje> maridajes;
-    private String descripcionVarietal;
-    private int porcentajeComposicionVarietal;
-    private String nombreUva;
+    private List<String> maridajes;
     private boolean actualizable;
+    //Esto se va a volver una serie de listas
+    private List<String> descripcionesVarietal;
+    private List<Integer> porcentajesComposicionVarietal;
+    private List<String> nombresUva;
 }

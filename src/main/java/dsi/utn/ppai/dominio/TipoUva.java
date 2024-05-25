@@ -3,12 +3,14 @@ package dsi.utn.ppai.dominio;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.Objects;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@ToString
 public class TipoUva {
     private String descripcion;
     private String nombre;

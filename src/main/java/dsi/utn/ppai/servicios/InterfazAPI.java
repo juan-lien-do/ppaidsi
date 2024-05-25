@@ -32,8 +32,6 @@ public class InterfazAPI {
 
             List<VinoDataHolder> vinos = Arrays.stream(res.getBody()).toList();
 
-            //vinos.stream().map(x -> System.out.println(x));
-            //System.out.println(vinos);
             return vinos;
 
         } catch (HttpClientErrorException errorException) {

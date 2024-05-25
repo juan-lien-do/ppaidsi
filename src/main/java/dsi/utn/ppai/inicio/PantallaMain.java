@@ -1,7 +1,7 @@
 package dsi.utn.ppai.inicio;
 
 import dsi.utn.ppai.PpaiApplication;
-import dsi.utn.ppai.pantalla.PantallaImportarNovedades;
+import dsi.utn.ppai.pantalla.PantallaDeImportarVinos;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import lombok.Getter;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -25,10 +26,13 @@ public class PantallaMain implements Initializable {
     private static Stage stage;
     @Getter
     private static ConfigurableApplicationContext applicationContext;
+    @FXML
+    private ImageView imageView;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         PantallaMain.applicationContext = new SpringApplicationBuilder(PpaiApplication.class).run();
+
     }
 
     public static void volverAInicio(Stage stage) throws IOException {
@@ -43,7 +47,7 @@ public class PantallaMain implements Initializable {
     @FXML
     public void opcionImportarNovedades(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        PantallaImportarNovedades.opcionImportarVino(stage);
+        PantallaDeImportarVinos.opcionImportarVino(stage);
     }
 
     public void opcionNoImplementada() {

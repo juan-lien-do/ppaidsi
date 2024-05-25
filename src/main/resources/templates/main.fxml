@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dsi.utn.ppai.inicio.PantallaMain">
@@ -42,16 +42,9 @@
             </children>
         </AnchorPane>
         <AnchorPane>
-            <children>
-                <Label text="Bonvino">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                </Label>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="19.0" layoutX="80.0" layoutY="43.0" stroke="BLACK" strokeType="INSIDE" width="45.0" />
-            <Ellipse fill="#ff1f84" layoutX="101.0" layoutY="53.0" radiusX="9.0" radiusY="18.0" stroke="BLACK" strokeType="INSIDE" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="35.0" layoutY="35.0" stroke="BLACK" strokeType="INSIDE" width="102.0" />
-            </children>
+         <children>
+            <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
         </AnchorPane>
     </children>
 </AnchorPane>

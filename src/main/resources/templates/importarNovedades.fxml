@@ -4,9 +4,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dsi.utn.ppai.pantalla.PantallaImportarNovedades">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dsi.utn.ppai.pantalla.PantallaDeImportarVinos">
     <children>
-        <AnchorPane fx:id="pantallaEspera" layoutX="153.0" layoutY="249.0">
+        <AnchorPane fx:id="divEspera" layoutX="153.0" layoutY="249.0">
          <children>
             <Label text="Por favor espere mientras estamos buscando :)">
                <font>
@@ -15,7 +15,7 @@
             </Label>
          </children>
         </AnchorPane>
-        <AnchorPane fx:id="pantallaSeleccionBodega" visible="false">
+        <AnchorPane fx:id="divSeleccionBodega" visible="false">
             <children>
                 <Label layoutX="288.0" layoutY="87.0" text="Seleccione las bodegas">
                     <font>
@@ -29,10 +29,10 @@
                 </Label>
                 <Button layoutX="301.0" layoutY="384.0" mnemonicParsing="false" onAction="#tomarSeleccionBodega" text="Consumir datos de bodega" />
                 <Button layoutX="356.0" layoutY="429.0" mnemonicParsing="false" onAction="#volverAtras" text="Volver" />
-            <ListView fx:id="listView" layoutX="281.0" layoutY="167.0" prefHeight="200.0" prefWidth="200.0" />
+            <ListView fx:id="listViewBodegas" layoutX="281.0" layoutY="167.0" prefHeight="200.0" prefWidth="200.0" />
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="pantallaResumen" visible="false">
+        <AnchorPane fx:id="divResumen" visible="false">
          <children>
             <Label layoutX="82.0" layoutY="9.0" text="Resumen de actualización de bodega:" underline="true">
                <font>
@@ -59,7 +59,7 @@
             </Label>
          </children>
         </AnchorPane>
-        <AnchorPane fx:id="pantallaNoHayBodegas" visible="false">
+        <AnchorPane fx:id="divNoHayBodegas" visible="false">
             <children>
 
                 <Button layoutX="356.0" layoutY="429.0" mnemonicParsing="false" onAction="#volverAtras" text="Volver" />
