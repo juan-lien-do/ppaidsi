@@ -90,10 +90,6 @@ public class PantallaDeImportarVinos implements Initializable {
 
     }
 
-    public void cerrarVentana(ActionEvent event) {
-        Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        stage.close();
-    }
 
     public void volverAtras(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
