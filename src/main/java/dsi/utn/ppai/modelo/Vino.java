@@ -1,4 +1,4 @@
-package dsi.utn.ppai.dominio;
+package dsi.utn.ppai.modelo;
 
 import dsi.utn.ppai.utilidades.VinoDataHolder;
 import lombok.AllArgsConstructor;

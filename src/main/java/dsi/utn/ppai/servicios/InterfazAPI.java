@@ -1,10 +1,6 @@
 package dsi.utn.ppai.servicios;
 
-import dsi.utn.ppai.dominio.Vino;
 import dsi.utn.ppai.utilidades.VinoDataHolder;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.stereotype.Service;
@@ -12,7 +8,6 @@ import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 @Service
 public class InterfazAPI {

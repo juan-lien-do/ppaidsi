@@ -1,10 +1,9 @@
-package dsi.utn.ppai.dominio;
+package dsi.utn.ppai.modelo;
 
 import dsi.utn.ppai.utilidades.VinoDataHolder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

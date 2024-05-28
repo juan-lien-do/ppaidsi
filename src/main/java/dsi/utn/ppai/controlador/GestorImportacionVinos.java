@@ -1,6 +1,6 @@
 package dsi.utn.ppai.controlador;
 
-import dsi.utn.ppai.dominio.*;
+import dsi.utn.ppai.modelo.*;
 import dsi.utn.ppai.inicio.PantallaMain;
 import dsi.utn.ppai.pantalla.PantallaDeImportarVinos;
 import dsi.utn.ppai.servicios.InterfazAPI;
@@ -21,7 +21,6 @@ public class GestorImportacionVinos {
     private List<String> nombresBodegasTemp;
     private final InterfazAPI interfazAPI;
     private Bodega bodegaSeleccionada;
-    private List<VinoDataHolder> vinoDataHolders;
     private List<Bodega> bodegas;
     private final InterfazNotificacionPush interfazNotificacionPush;
     private LocalDate fechaActual;
@@ -58,33 +57,32 @@ public class GestorImportacionVinos {
         this.fechaActual = LocalDate.now();
     }
 
-    public void obtenerActualizaciones() {
+    public List<VinoDataHolder> obtenerActualizaciones() {
         String url = this.bodegaSeleccionada.getApiUrl();
-        this.vinoDataHolders = interfazAPI.consultarNovedades(url);
-
-
+        return interfazAPI.consultarNovedades(url);
     }
 
-    private void actualizarVinos() {
-        //this.vinoDataHolders;
-        this.bodegaSeleccionada.actualizarVinos(vinoDataHolders, this.fechaActual);
+    private void actualizarVinos(List<VinoDataHolder> vinosDTO) {
+        this.bodegaSeleccionada.actualizarVinos(vinosDTO, this.fechaActual);
     }
 
     public void tomarSeleccionBodega(String nombre) {
+
+        List<VinoDataHolder> vinosDTO = null;
         //setear la bodega
         this.buscarBodegaPorNombre(nombre);
         //obtener actualizaciones
-        this.obtenerActualizaciones();
-        // y hacer cosas con los vinos
-        this.actualizarVinos();
-        this.crearVinosNuevos();
+        vinosDTO = this.obtenerActualizaciones();
+        // y hacer cosas con los vinosDTO
+        this.actualizarVinos(vinosDTO);
+        this.crearVinosNuevos(vinosDTO);
         // act fecha bodega
         this.bodegaSeleccionada.actualizarFechaBodega(fechaActual);
         //mostrar cambios
 
         pantallaDeImportarVinos.mostrarResumenDeVinos(bodegaSeleccionada.getNombre(),
-                this.vinoDataHolders.stream().filter(x -> x.isActualizable()).map(x -> x.getNombre()).toList(),
-                this.vinoDataHolders.stream().filter(x -> !x.isActualizable()).map(x -> x.getNombre()).toList());
+                vinosDTO.stream().filter(x -> x.isActualizable()).map(x -> x.getNombre()).toList(),
+                vinosDTO.stream().filter(x -> !x.isActualizable()).map(x -> x.getNombre()).toList());
 
         // aca va lo que falta
         buscarSeguidoresDeBodega();
@@ -105,8 +103,8 @@ public class GestorImportacionVinos {
 
     }
 
-    private void crearVinosNuevos() {
-        for (VinoDataHolder x : this.vinoDataHolders) {
+    private void crearVinosNuevos(List<VinoDataHolder> vinosDTO) {
+        for (VinoDataHolder x : vinosDTO) {
             if (!x.isActualizable()) {
                 List<Maridaje> maridajeParticular = this.buscarMaridaje(x.getMaridajes());
                 List<TipoUva> tiposUvaParticular = this.buscarTipoDeUva(x.getNombresUva());
