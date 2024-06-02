@@ -102,7 +102,7 @@ public class PantallaDeImportarVinos implements Initializable {
         this.divResumen.setVisible(true);
         this.textoNovedad.setText(new StringBuilder().append("En la bodega ")
                 .append(nombre).append(" hay ").append(String.valueOf((actualizados.size() + nuevos.size())))
-                .append(" vinos nuevos.").toString());
+                .append(" vinos actualizados.").toString());
         listViewVinosCambiados.getItems().addAll(actualizados);
         listViewVinosNuevos.getItems().addAll(nuevos);
     }

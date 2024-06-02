@@ -37,11 +37,11 @@ public class GestorImportacionVinos {
 
     private void buscarBodegas() {
         List<Bodega> bodegasTemp = FalsaBaseDeDatos.getInstance().getBodegas();
-        getDate();
+        this.fechaActual = getDate();
         List<String> nombresBodegasTemp = new ArrayList<>();
-        for (Bodega x : bodegasTemp) {
-            if (x.esActualizable(this.fechaActual)) {
-                nombresBodegasTemp.add(x.getNombre());
+        for (Bodega bodegaAnalizar : bodegasTemp) {
+            if (bodegaAnalizar.esActualizable(this.fechaActual)) {
+                nombresBodegasTemp.add(bodegaAnalizar.getNombre());
             }
         }
         if (nombresBodegasTemp.isEmpty()) {
@@ -53,8 +53,8 @@ public class GestorImportacionVinos {
 
     }
 
-    private void getDate() {
-        this.fechaActual = LocalDate.now();
+    private LocalDate getDate() {
+        return LocalDate.now();
     }
 
     public List<VinoDataHolder> obtenerActualizaciones() {
@@ -104,17 +104,22 @@ public class GestorImportacionVinos {
     }
 
     private void crearVinosNuevos(List<VinoDataHolder> vinosDTO) {
-        for (VinoDataHolder x : vinosDTO) {
-            if (!x.isActualizable()) {
-                List<Maridaje> maridajeParticular = this.buscarMaridaje(x.getMaridajes());
-                List<TipoUva> tiposUvaParticular = this.buscarTipoDeUva(x.getNombresUva());
-                crearVino(x, tiposUvaParticular, maridajeParticular);
+        for (VinoDataHolder vinoDto : vinosDTO) {
+            if (!vinoDto.isActualizable()) {
+                List<Maridaje> maridajeParticular = this.buscarMaridaje(vinoDto.getMaridajes());
+                List<TipoUva> tiposUvaParticular = this.buscarTipoDeUva(vinoDto.getNombresUva());
+                //refactor desde aca
+                crearVino(vinoDto, tiposUvaParticular, maridajeParticular);
             }
         }
     }
 
-    private void crearVino(VinoDataHolder x, List<TipoUva> tipoUvaParticular, List<Maridaje> maridajeParticular) {
-        Vino vinoParticular = new Vino(x, tipoUvaParticular, maridajeParticular, this.bodegaSeleccionada);
+    private void crearVino(VinoDataHolder vinoDTO, List<TipoUva> tipoUvaParticular, List<Maridaje> maridajeParticular) {
+        // partir el dto antes de mandarselo al constructorr
+
+        Vino vinoParticular = new Vino(this.fechaActual, vinoDTO.getNombre(), vinoDTO.getAnada(), vinoDTO.getPrecioARS(),
+                vinoDTO.getNotaDeCataBodega(), vinoDTO.getDescripcionesVarietal(), vinoDTO.getPorcentajesComposicionVarietal(),
+                tipoUvaParticular, maridajeParticular, this.bodegaSeleccionada);
         System.out.println(vinoParticular);
         FalsaBaseDeDatos.getInstance().agregarNuevoVino(vinoParticular);
     }
@@ -123,10 +128,10 @@ public class GestorImportacionVinos {
         if (nombreUva == null) return null;
         List<TipoUva> tiposUva = new ArrayList<>();
 
-        for (TipoUva x : FalsaBaseDeDatos.getInstance().getTiposUva()) {
-            for (String y : nombreUva)
-                if (x.sosTipoDeUva(y)) {
-                    tiposUva.add(x);
+        for (TipoUva tUva : FalsaBaseDeDatos.getInstance().getTiposUva()) {
+            for (String nombreTUva : nombreUva)
+                if (tUva.sosTipoDeUva(nombreTUva)) {
+                    tiposUva.add(tUva);
                 }
         }
         return tiposUva;
@@ -135,10 +140,10 @@ public class GestorImportacionVinos {
     private List<Maridaje> buscarMaridaje(List<String> maridajesP) {
         if (maridajesP == null) return null;
         List<Maridaje> maridajesFinal = new ArrayList<>();
-        for (Maridaje x : FalsaBaseDeDatos.getInstance().getMaridajes()) {
-            for (String y : maridajesP) {
-                if (x.sosMaridaje(y)) {
-                    maridajesFinal.add(x);
+        for (Maridaje maridaje : FalsaBaseDeDatos.getInstance().getMaridajes()) {
+            for (String nombreMaridaje : maridajesP) {
+                if (maridaje.sosMaridaje(nombreMaridaje)) {
+                    maridajesFinal.add(maridaje);
                 }
             }
         }
@@ -146,9 +151,9 @@ public class GestorImportacionVinos {
     }
 
     private void buscarBodegaPorNombre(String nombre) {
-        for (Bodega x : this.bodegas) {
-            if (x.existe(nombre)) {
-                this.bodegaSeleccionada = x;
+        for (Bodega bodega : this.bodegas) {
+            if (bodega.existe(nombre)) {
+                this.bodegaSeleccionada = bodega;
             }
         }
 

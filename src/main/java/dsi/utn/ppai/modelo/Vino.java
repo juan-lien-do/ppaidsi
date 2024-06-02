@@ -26,19 +26,24 @@ public class Vino {
     private Bodega bodega;
     private List<Maridaje> maridajes;
 
-    public boolean existeVino(String xNombre, int xAnada){
+    public boolean existeVino(String xNombre, int xAnada) {
         return (Objects.equals(this.getNombre(), xNombre) && this.getAnada() == xAnada);
     }
-    public Vino(VinoDataHolder x, List<TipoUva> tipoUvaParticular, List<Maridaje> maridajeParticular, Bodega bodega){
-        this.nombre = x.getNombre();
-        this.anada = x.getAnada();
-        this.precioARS = x.getPrecioARS();
-        this.fechaActualizacion = LocalDate.now();
-        this.notaDeCataBodega = x.getNotaDeCataBodega();
+
+    //refactor constructor
+    public Vino(LocalDate fechaActual, String vinoNombre, int vinoAnada,
+                float vinoPrecioARS, String vinoNotaCata, List<String> vinoDescripcionesVarietal,
+                List<Integer> vinoPorcentajesVarietales , List<TipoUva> tipoUvaParticular,
+                List<Maridaje> maridajeParticular, Bodega bodega) {
+        this.nombre = vinoNombre;
+        this.anada = vinoAnada;
+        this.precioARS = vinoPrecioARS;
+        this.fechaActualizacion = fechaActual;
+        this.notaDeCataBodega = vinoNotaCata;
         List<Varietal> varietalTemp = new ArrayList<>();
         for (int i = 0; i < tipoUvaParticular.size(); i++) {
-            varietalTemp.add(crearVarietal(x.getDescripcionesVarietal().get(i),
-                    x.getPorcentajesComposicionVarietal().get(i),
+            varietalTemp.add(crearVarietal(vinoDescripcionesVarietal.get(i),
+                    vinoPorcentajesVarietales.get(i),
                     tipoUvaParticular.get(i)));
         }
         this.varietales = varietalTemp;
@@ -47,7 +52,7 @@ public class Vino {
         bodega.agregarVino(this);
     }
 
-    private Varietal crearVarietal(String descrip, int porcentaje, TipoUva tipoUvaParticular){
+    private Varietal crearVarietal(String descrip, int porcentaje, TipoUva tipoUvaParticular) {
         return new Varietal(descrip, porcentaje, tipoUvaParticular);
     }
 

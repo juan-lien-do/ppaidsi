@@ -21,8 +21,8 @@ public class InterfazAPI {
             );
             VinoDataHolder[] vinitos = res.getBody();
 
-            for (VinoDataHolder x : vinitos) {
-                System.out.println(x);
+            for (VinoDataHolder vin : vinitos) {
+                System.out.println(vin);
             }
 
             List<VinoDataHolder> vinos = Arrays.stream(res.getBody()).toList();

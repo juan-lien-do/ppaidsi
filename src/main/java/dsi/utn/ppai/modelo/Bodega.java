@@ -62,15 +62,15 @@ public class Bodega {
     }
 
     public void actualizarVinos(List<VinoDataHolder> vinoDataHolders, LocalDate fechaActual) {
-        for (Vino x : this.vinos) {
-            for (VinoDataHolder y : vinoDataHolders) {
-                if (x.existeVino(y.getNombre(), y.getAnada())) {
-                    y.setActualizable(true);
+        for (Vino vino : this.vinos) {
+            for (VinoDataHolder vinoDTO : vinoDataHolders) {
+                if (vino.existeVino(vinoDTO.getNombre(), vinoDTO.getAnada())) {
+                    vinoDTO.setActualizable(true);
 
-                    x.setImagenEtiqueta(y.getImagenEtiqueta());
-                    x.setPrecioARS(y.getPrecioARS());
-                    x.setNotaDeCataBodega(y.getNotaDeCataBodega());
-                    x.setFechaActualizacion(fechaActual);
+                    vino.setImagenEtiqueta(vinoDTO.getImagenEtiqueta());
+                    vino.setPrecioARS(vinoDTO.getPrecioARS());
+                    vino.setNotaDeCataBodega(vinoDTO.getNotaDeCataBodega());
+                    vino.setFechaActualizacion(fechaActual);
                 }
             }
         }
