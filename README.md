@@ -10,9 +10,13 @@ Este usa java 17 y java fx 17
 
 es un proyecto Maven que se abre con IntelliJ Idea Community Edition 2023.2
 
-de aca baje los javas (elegir java 17.0.11 que tiene LTS)
+de aca bajar los javas (elegir java 17.0.11 que tiene LTS)
 
 https://www.youtube.com/watch?v=3pKlE2k0A-c
+
+solucion al problema "JavaFX runtime components are missing"
+
+https://www.youtube.com/watch?v=hS_6ek9rTco
 
 ## Como se ejecuta
 
