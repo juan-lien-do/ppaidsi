@@ -4,6 +4,8 @@
 
 hacer un $git clone https://github.com/juan-lien-do/ppaidsi.git
 
+hace falta tambien clonar y levantar en localhost el sistema de bodega https://github.com/juan-lien-do/ppaidsiapi
+
 ## que programas usar
 
 Este usa java 17 y java fx 17
@@ -24,5 +26,5 @@ Desde IntelliJIDea, ir a /ppai/src/main/java/dsi.utn.ppai.inicio/ y ejecutar la 
 
 ## sobre el proyecto
 
-los archivos fxml son las plantillas, es como un html pero un poco mas feo. lo bueno es que lo podes manejar desde el scene builder.
+los archivos fxml son las plantillas, es como un html. lo bueno es que lo podes manejar desde el scene builder.
 
