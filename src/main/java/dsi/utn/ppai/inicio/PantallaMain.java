@@ -31,7 +31,8 @@ public class PantallaMain implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        PantallaMain.applicationContext = new SpringApplicationBuilder(PpaiApplication.class).run();
+        PantallaMain.applicationContext = FXMain.getApplicationContext();
+        //PantallaMain.applicationContext = new SpringApplicationBuilder(PpaiApplication.class).run();
 
     }
 

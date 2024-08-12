@@ -19,14 +19,16 @@ import org.springframework.context.ConfigurableApplicationContext;
 //
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
 public class FXMain extends Application {
-    private ConfigurableApplicationContext applicationContext;
+
+    @Getter
+    private static ConfigurableApplicationContext applicationContext;
 
     @Getter
     private static Stage stage;
 
     @Override
     public void init(){
-        this.applicationContext = new SpringApplicationBuilder(PpaiApplication.class).run();
+        FXMain.applicationContext = new SpringApplicationBuilder(PpaiApplication.class).run();
     }
 
     // Un stage tiene adentro muchas Scenes
