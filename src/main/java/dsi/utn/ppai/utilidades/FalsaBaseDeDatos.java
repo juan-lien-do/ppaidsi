@@ -87,15 +87,15 @@ public class FalsaBaseDeDatos {
                  "Crepúsculo Sereno", "Textura aterciopelada y redonda", 5900,
                 List.of(new Varietal(null, 91, tiposUva.get(2))), null);
 
-        vino1.setBodega(bodegasXD.get(1));bodegasXD.get(1).agregarVino(vino1);
-        vino7.setBodega(bodegasXD.get(1));bodegasXD.get(1).agregarVino(vino7);
-        vino4.setBodega(bodegasXD.get(1));bodegasXD.get(1).agregarVino(vino4);
-        vino2.setBodega(bodegasXD.get(2));bodegasXD.get(2).agregarVino(vino2);
-        vino5.setBodega(bodegasXD.get(2));bodegasXD.get(2).agregarVino(vino5);
-        vino8.setBodega(bodegasXD.get(2));bodegasXD.get(2).agregarVino(vino8);
-        vino3.setBodega(bodegasXD.get(0));bodegasXD.get(0).agregarVino(vino3);
-        vino6.setBodega(bodegasXD.get(0));bodegasXD.get(0).agregarVino(vino6);
-        vino9.setBodega(bodegasXD.get(0));bodegasXD.get(0).agregarVino(vino9);
+        vino1.setBodega(bodegasXD.get(1));  bodegasXD.get(1).agregarVino(vino1);
+        vino7.setBodega(bodegasXD.get(1));  bodegasXD.get(1).agregarVino(vino7);
+        vino4.setBodega(bodegasXD.get(1));  bodegasXD.get(1).agregarVino(vino4);
+        vino2.setBodega(bodegasXD.get(2));  bodegasXD.get(2).agregarVino(vino2);
+        vino5.setBodega(bodegasXD.get(2));  bodegasXD.get(2).agregarVino(vino5);
+        vino8.setBodega(bodegasXD.get(2));  bodegasXD.get(2).agregarVino(vino8);
+        vino3.setBodega(bodegasXD.get(0));  bodegasXD.get(0).agregarVino(vino3);
+        vino6.setBodega(bodegasXD.get(0));  bodegasXD.get(0).agregarVino(vino6);
+        vino9.setBodega(bodegasXD.get(0));  bodegasXD.get(0).agregarVino(vino9);
 
         this.bodegas = bodegasXD;
         this.vinos = new ArrayList<>();

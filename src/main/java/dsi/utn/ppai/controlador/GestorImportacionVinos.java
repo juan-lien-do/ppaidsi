@@ -37,8 +37,11 @@ public class GestorImportacionVinos {
 
     private void buscarBodegas() {
         List<Bodega> bodegasTemp = FalsaBaseDeDatos.getInstance().getBodegas();
+
         this.fechaActual = getDate();
+
         List<String> nombresBodegasTemp = new ArrayList<>();
+
         for (Bodega bodegaAnalizar : bodegasTemp) {
             if (bodegaAnalizar.esActualizable(this.fechaActual)) {
                 nombresBodegasTemp.add(bodegaAnalizar.getNombre());
@@ -70,7 +73,7 @@ public class GestorImportacionVinos {
 
         List<VinoDataHolder> vinosDTO = null;
         //setear la bodega
-        this.buscarBodegaPorNombre(nombre);
+        this.bodegaSeleccionada = this.buscarBodegaPorNombre(nombre);
         //obtener actualizaciones
         vinosDTO = this.obtenerActualizaciones();
         // y hacer cosas con los vinosDTO
@@ -99,7 +102,6 @@ public class GestorImportacionVinos {
         for (String nombre : nomEnofilos) {
             this.interfazNotificacionPush.enviarNotificacion(nombre);
         }
-        ;
 
     }
 
@@ -150,12 +152,12 @@ public class GestorImportacionVinos {
         return maridajesFinal;
     }
 
-    private void buscarBodegaPorNombre(String nombre) {
+    private Bodega buscarBodegaPorNombre(String nombre) {
         for (Bodega bodega : this.bodegas) {
             if (bodega.existe(nombre)) {
-                this.bodegaSeleccionada = bodega;
+                return bodega;
             }
         }
-
+        return null;
     }
 }

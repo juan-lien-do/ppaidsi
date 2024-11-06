@@ -24,6 +24,7 @@ public class FXMain extends Application {
     private static ConfigurableApplicationContext applicationContext;
 
     @Getter
+    @Setter
     private static Stage stage;
 
     @Override

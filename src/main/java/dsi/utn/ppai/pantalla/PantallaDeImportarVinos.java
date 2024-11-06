@@ -53,17 +53,21 @@ public class PantallaDeImportarVinos implements Initializable {
         FXMLLoader loader = new FXMLLoader(PpaiApplication.class.getResource("/templates/importarNovedades.fxml"));
         loader.setControllerFactory(PantallaMain.getApplicationContext()::getBean);
         Scene escena = new Scene(loader.load());
-        FXMain.getStage().setScene(escena);
+        stage.setScene(escena);
         stage.show();
     }
 
     public void habilitarPantalla() {
         this.gestorImportacionVinos = new GestorImportacionVinos(this);
+
         gestorImportacionVinos.importarVinos();
     }
 
     public void mostrarBodegas(List<String> nombres) {
         divEspera.setVisible(false);
+        divNoHayBodegas.setVisible(false);
+        divResumen.setVisible(false);
+
         divSeleccionBodega.setVisible(true);
         listViewBodegas.getItems().addAll(nombres);
         listViewBodegas.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -86,6 +90,7 @@ public class PantallaDeImportarVinos implements Initializable {
         divResumen.setVisible(false);
         divSeleccionBodega.setVisible(false);
         divEspera.setVisible(false);
+
         divNoHayBodegas.setVisible(true);
 
     }
@@ -100,6 +105,7 @@ public class PantallaDeImportarVinos implements Initializable {
         this.divEspera.setVisible(false);
         this.divSeleccionBodega.setVisible(false);
         this.divResumen.setVisible(true);
+
         this.textoNovedad.setText(new StringBuilder().append("En la bodega ")
                 .append(nombre).append(" hay ").append(String.valueOf((actualizados.size() + nuevos.size())))
                 .append(" vinos actualizados.").toString());
