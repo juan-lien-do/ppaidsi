@@ -8,6 +8,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class Siguiendo {
+    private int idSiguiendo;
     private LocalDate fechaFin;
     private LocalDate fechaInicio;
     private Bodega bodega;

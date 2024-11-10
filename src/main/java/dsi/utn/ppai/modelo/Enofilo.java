@@ -12,6 +12,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class Enofilo {
+    private int idEnofilo;
     private String apellido;
     private String nombre;
     private Usuario usuario;

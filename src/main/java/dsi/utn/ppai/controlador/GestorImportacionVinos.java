@@ -5,7 +5,7 @@ import dsi.utn.ppai.inicio.PantallaMain;
 import dsi.utn.ppai.pantalla.PantallaDeImportarVinos;
 import dsi.utn.ppai.servicios.InterfazAPI;
 import dsi.utn.ppai.servicios.InterfazNotificacionPush;
-import dsi.utn.ppai.utilidades.FalsaBaseDeDatos;
+import dsi.utn.ppai.utilidades.AdministradorBaseDeDatos;
 import dsi.utn.ppai.utilidades.VinoDataHolder;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,7 +36,7 @@ public class GestorImportacionVinos {
     }
 
     private void buscarBodegas() {
-        List<Bodega> bodegasTemp = FalsaBaseDeDatos.getInstance().getBodegas();
+        List<Bodega> bodegasTemp = AdministradorBaseDeDatos.getInstance().getBodegas();
 
         this.fechaActual = getDate();
 
@@ -92,7 +92,7 @@ public class GestorImportacionVinos {
     }
 
     private void buscarSeguidoresDeBodega() {
-        List<Enofilo> enofilos = FalsaBaseDeDatos.getInstance().getEnofilos();
+        List<Enofilo> enofilos = AdministradorBaseDeDatos.getInstance().getEnofilos();
         List<String> nomEnofilos = new ArrayList<>();
         for (Enofilo en : enofilos) {
             if (en.seguisABodega(bodegaSeleccionada)) {
@@ -123,14 +123,14 @@ public class GestorImportacionVinos {
                 vinoDTO.getNotaDeCataBodega(), vinoDTO.getDescripcionesVarietal(), vinoDTO.getPorcentajesComposicionVarietal(),
                 tipoUvaParticular, maridajeParticular, this.bodegaSeleccionada);
         System.out.println(vinoParticular);
-        FalsaBaseDeDatos.getInstance().agregarNuevoVino(vinoParticular);
+        AdministradorBaseDeDatos.getInstance().agregarNuevoVino(vinoParticular);
     }
 
     private List<TipoUva> buscarTipoDeUva(List<String> nombreUva) {
         if (nombreUva == null) return null;
         List<TipoUva> tiposUva = new ArrayList<>();
 
-        for (TipoUva tUva : FalsaBaseDeDatos.getInstance().getTiposUva()) {
+        for (TipoUva tUva : AdministradorBaseDeDatos.getInstance().getTiposUva()) {
             for (String nombreTUva : nombreUva)
                 if (tUva.sosTipoDeUva(nombreTUva)) {
                     tiposUva.add(tUva);
@@ -142,7 +142,7 @@ public class GestorImportacionVinos {
     private List<Maridaje> buscarMaridaje(List<String> maridajesP) {
         if (maridajesP == null) return null;
         List<Maridaje> maridajesFinal = new ArrayList<>();
-        for (Maridaje maridaje : FalsaBaseDeDatos.getInstance().getMaridajes()) {
+        for (Maridaje maridaje : AdministradorBaseDeDatos.getInstance().getMaridajes()) {
             for (String nombreMaridaje : maridajesP) {
                 if (maridaje.sosMaridaje(nombreMaridaje)) {
                     maridajesFinal.add(maridaje);

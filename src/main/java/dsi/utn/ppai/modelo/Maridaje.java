@@ -12,9 +12,15 @@ import java.util.Objects;
 @AllArgsConstructor
 @ToString
 public class Maridaje {
+    private int idMaridaje;
     private String descripcion;
     private String nombre;
     public boolean sosMaridaje(String nombre){
         return (Objects.equals(nombre, this.nombre));
+    }
+
+    public Maridaje(String descripcion, String nombre) {
+        this.descripcion = descripcion;
+        this.nombre = nombre;
     }
 }

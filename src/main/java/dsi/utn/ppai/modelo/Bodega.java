@@ -1,9 +1,7 @@
 package dsi.utn.ppai.modelo;
 
 import dsi.utn.ppai.utilidades.VinoDataHolder;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,7 +11,10 @@ import java.util.Objects;
 @Getter
 @Setter
 @AllArgsConstructor
+@Builder
+@ToString
 public class Bodega {
+    private int idBodega;
     private float[] coordenadasUbicacion;
     private String apiUrl;
     private String descripcion;

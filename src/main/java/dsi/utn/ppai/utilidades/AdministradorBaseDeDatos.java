@@ -1,24 +1,36 @@
 package dsi.utn.ppai.utilidades;
 
+import dsi.utn.ppai.PpaiApplication;
+import dsi.utn.ppai.inicio.FXMain;
 import dsi.utn.ppai.modelo.*;
+import dsi.utn.ppai.repositorios.BodegaRepository;
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-public class FalsaBaseDeDatos {
+@Service
+public class AdministradorBaseDeDatos {
+    @Autowired
+    private BodegaRepository bodegaRepository;
+    @Getter
     private List<Bodega> bodegas;
+    @Getter
     private List<Vino> vinos;
+    @Getter
     private List<Maridaje> maridajes;
+    @Getter
     private List<TipoUva> tiposUva;
+    @Getter
     private List<Enofilo> enofilos;
-    private static FalsaBaseDeDatos falsaBaseDeDatos;
+    private static AdministradorBaseDeDatos falsaBaseDeDatos;
 
-    public static FalsaBaseDeDatos getInstance() {
+    public static AdministradorBaseDeDatos getInstance() {
         if (falsaBaseDeDatos == null) {
-            falsaBaseDeDatos = new FalsaBaseDeDatos();
+            falsaBaseDeDatos = new AdministradorBaseDeDatos();
         }
         return falsaBaseDeDatos;
     }
@@ -27,7 +39,12 @@ public class FalsaBaseDeDatos {
         this.vinos.add(vino);
     }
 
-    private FalsaBaseDeDatos() {
+    private AdministradorBaseDeDatos() {
+        this.bodegaRepository = AppContextProvider.getApplicationContext().getBean(BodegaRepository.class);
+
+
+        System.out.println(bodegaRepository.findAll());
+
         List<TipoUva> tiposUvaXD = new ArrayList<>();
         tiposUvaXD.add(new TipoUva("La uva Malbec es una variedad de uva tinta que ha ganado popularidad en todo el mundo, especialmente en Argentina, aunque sus orígenes se encuentran en Francia",
                 "Malbec"));

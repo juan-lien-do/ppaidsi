@@ -16,6 +16,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @ToString
 public class Vino {
+    private int idVino;
     private String imagenEtiqueta;
     private int anada;
     private LocalDate fechaActualizacion;
