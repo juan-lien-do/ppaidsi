@@ -1,10 +1,7 @@
 package dsi.utn.ppai.modelo;
 
 import dsi.utn.ppai.utilidades.VinoDataHolder;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,6 +12,7 @@ import java.util.Objects;
 @Setter
 @AllArgsConstructor
 @ToString
+@Builder
 public class Vino {
     private int idVino;
     private String imagenEtiqueta;

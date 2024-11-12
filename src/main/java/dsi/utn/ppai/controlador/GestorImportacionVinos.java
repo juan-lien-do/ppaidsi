@@ -7,6 +7,7 @@ import dsi.utn.ppai.servicios.InterfazAPI;
 import dsi.utn.ppai.servicios.InterfazNotificacionPush;
 import dsi.utn.ppai.utilidades.AdministradorBaseDeDatos;
 import dsi.utn.ppai.utilidades.VinoDataHolder;
+import jakarta.transaction.Transactional;
 import lombok.Getter;
 import lombok.Setter;
 

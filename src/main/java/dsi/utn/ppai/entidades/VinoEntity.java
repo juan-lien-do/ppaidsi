@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -28,17 +29,50 @@ public class VinoEntity {
     private String nombre;
     @Column(name = "notaDeCataBodega")
     private String notaDeCataBodega;
-    @Column(name = "precioARS")
+    @Column(name = "precioArs")
     private Float precioARS;
 
-    @OneToMany(mappedBy = "vinoEntity")
+
+    @OneToMany(mappedBy = "vinoEntity", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<VarietalEntity> varietalEntities;
 
-    @ManyToMany
+    // perdon por usar fetchType Eager es que tenemos poco tiempo
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "maridajeXVino", // Nombre de la tabla intermedia
+            joinColumns = @JoinColumn(name = "vinoId"),
+            inverseJoinColumns = @JoinColumn(name = "maridajeId")
+    )
+    private List<MaridajeEntity> maridajeEntities;
+
+    @ManyToOne
+    @JoinColumn(name = "bodega_id") // FK a la bodega
+    private BodegaEntity bodega;
+
+    @Override
+    public String toString() {
+        return "VinoEntity{" +
+                "idVino=" + idVino +
+                ", imagenEtiqueta='" + imagenEtiqueta + '\'' +
+                ", anada=" + anada +
+                ", fechaActualizacion=" + fechaActualizacion +
+                ", nombre='" + nombre + '\'' +
+                ", notaDeCataBodega='" + notaDeCataBodega + '\'' +
+                ", precioARS=" + precioARS +
+                ", varietalEntities=" + varietalEntities +
+                ", maridajeEntities=" + maridajeEntities +
+                '}';
+    }
+}
+
+
+/*
+@ManyToMany
     @JoinTable(
             name = "maridajeXVino",
             joinColumns = @JoinColumn(name = "vinoId"),
             inverseJoinColumns = @JoinColumn(name = "maridajeId")
     )
-    private List<MaridajeEntity> maridajeEntities;
-}
+
+@OneToMany(mappedBy = "vinoEntity")
+* */

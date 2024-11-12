@@ -1,12 +1,14 @@
 package dsi.utn.ppai.modelo;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@Builder
 public class Usuario {
     private int idUsuario;
     private String contrasena;

@@ -2,29 +2,39 @@ package dsi.utn.ppai.utilidades;
 
 import dsi.utn.ppai.PpaiApplication;
 import dsi.utn.ppai.inicio.FXMain;
+import dsi.utn.ppai.mappers.MapperPersistencia;
 import dsi.utn.ppai.modelo.*;
-import dsi.utn.ppai.repositorios.BodegaRepository;
+import dsi.utn.ppai.repositorios.*;
+import jakarta.transaction.Transactional;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
 public class AdministradorBaseDeDatos {
-    @Autowired
     private BodegaRepository bodegaRepository;
-    @Getter
+    private EnofiloRepository enofiloRepository;
+    private MaridajeRepository maridajeRepository;
+    private SiguiendoRepository siguiendoRepository;
+    private TiposUvaRepository tiposUvaRepository;
+    private UsuariosRepository usuariosRepository;
+    private VarietalesRepository varietalesRepository;
+    private VinoRepository vinoRepository;
+
+    //@Getter
     private List<Bodega> bodegas;
-    @Getter
+    //@Getter
     private List<Vino> vinos;
-    @Getter
+    //@Getter
     private List<Maridaje> maridajes;
-    @Getter
+    //@Getter
     private List<TipoUva> tiposUva;
-    @Getter
+    //@Getter
     private List<Enofilo> enofilos;
     private static AdministradorBaseDeDatos falsaBaseDeDatos;
 
@@ -35,16 +45,56 @@ public class AdministradorBaseDeDatos {
         return falsaBaseDeDatos;
     }
 
+    // TODO: PONER PERSISTENCIA AL GUARDAR LOS VINOS NUEVOS, LOS VINOS VIEJOS Y LA FECHA DE CONSULTA DE LA BODEGA
     public void agregarNuevoVino(Vino vino){
         this.vinos.add(vino);
     }
 
+    public void persistirNuevoVino(Vino vino){
+
+    }
+    public void persistirCambiosVino(Vino vino){
+
+    }
+
+    public void persistirCambiosBodega(Bodega bodega){
+
+    }
+
     private AdministradorBaseDeDatos() {
-        this.bodegaRepository = AppContextProvider.getApplicationContext().getBean(BodegaRepository.class);
+        ApplicationContext context = FXMain.getApplicationContext();
+        this.bodegaRepository = context.getBean(BodegaRepository.class);
 
 
         System.out.println(bodegaRepository.findAll());
 
+
+
+        // inicializarConDatosMock();
+    }
+
+
+    public List<Bodega> getBodegas() {
+        return bodegaRepository.findAll().stream().map(MapperPersistencia::fromEntity).toList();
+    }
+
+    /*public List<Vino> getVinos() {
+        return vinoRepository.findAll().stream().map(MapperPersistencia::fromEntity).toList();
+    }*/
+
+    public List<Maridaje> getMaridajes() {
+        return maridajeRepository.findAll().stream().map(MapperPersistencia::fromEntity).toList();
+    }
+
+    public List<TipoUva> getTiposUva() {
+        return tiposUvaRepository.findAll().stream().map(MapperPersistencia::fromEntity).toList();
+    }
+
+    public List<Enofilo> getEnofilos() {
+        return MapperPersistencia.fromEntities(enofiloRepository.findAll(), bodegaRepository.findAll());
+    }
+
+    private void inicializarConDatosMock(){
         List<TipoUva> tiposUvaXD = new ArrayList<>();
         tiposUvaXD.add(new TipoUva("La uva Malbec es una variedad de uva tinta que ha ganado popularidad en todo el mundo, especialmente en Argentina, aunque sus orígenes se encuentran en Francia",
                 "Malbec"));
@@ -101,7 +151,7 @@ public class AdministradorBaseDeDatos {
                 "Aurora Boreal", "Equilibrado y elegante", 5800,
                 List.of(new Varietal(null, 86, tiposUva.get(0))), null);
         Vino vino9 = new Vino(2020, LocalDate.now().minusDays(300),
-                 "Crepúsculo Sereno", "Textura aterciopelada y redonda", 5900,
+                "Crepúsculo Sereno", "Textura aterciopelada y redonda", 5900,
                 List.of(new Varietal(null, 91, tiposUva.get(2))), null);
 
         vino1.setBodega(bodegasXD.get(1));  bodegasXD.get(1).agregarVino(vino1);

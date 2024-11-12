@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 @SpringBootApplication
+//@EnableJpaRepositories(basePackages = "dsi.utn.ppai.repositorios")
 public class PpaiApplication {
 
 	public static void main(String[] args) {

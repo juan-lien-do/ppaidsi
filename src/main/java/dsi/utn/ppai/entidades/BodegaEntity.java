@@ -4,6 +4,8 @@ package dsi.utn.ppai.entidades;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,6 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class BodegaEntity {
@@ -28,8 +31,14 @@ public class BodegaEntity {
     private String nombre;
     @Column(name = "periodoActualizacion")
     private Integer periodoActualizacion;
+    @Column(name = "ultimaActualizacion")
+    private LocalDate ultimaActualizacion;
 
-    @OneToMany
-    @JoinColumn(name = "bodegaId")
+    // perdon por usar fetchType Eager es que tenemos poco tiempo
+    @OneToMany(mappedBy = "bodega", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<VinoEntity> vinoEntities;
 }
+
+/*
+@OneToMany
+@JoinColumn(name = "bodegaId")*/

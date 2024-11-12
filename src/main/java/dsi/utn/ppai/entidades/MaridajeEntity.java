@@ -3,6 +3,8 @@ package dsi.utn.ppai.entidades;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "maridajes")
 @Getter
@@ -21,4 +23,6 @@ public class MaridajeEntity {
     private String nombre;
 
 
+    @ManyToMany(mappedBy = "maridajeEntities")
+    private List<VinoEntity> vinoEntities;
 }

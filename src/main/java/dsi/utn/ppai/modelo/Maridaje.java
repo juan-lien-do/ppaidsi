@@ -1,15 +1,13 @@
 package dsi.utn.ppai.modelo;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Objects;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@Builder
 @ToString
 public class Maridaje {
     private int idMaridaje;

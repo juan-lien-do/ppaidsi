@@ -1,9 +1,6 @@
 package dsi.utn.ppai.modelo;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Objects;
 
@@ -11,6 +8,7 @@ import java.util.Objects;
 @Setter
 @AllArgsConstructor
 @ToString
+@Builder
 public class TipoUva {
     private int idTipoUva;
     private String descripcion;
