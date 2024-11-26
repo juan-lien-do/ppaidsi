@@ -1,8 +1,6 @@
 package dsi.utn.ppai.modelo;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -10,8 +8,11 @@ import java.util.List;
 
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
+@ToString
 public class Enofilo {
+    private int idEnofilo;
     private String apellido;
     private String nombre;
     private Usuario usuario;

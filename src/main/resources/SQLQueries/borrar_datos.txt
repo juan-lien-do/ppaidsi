@@ -1,0 +1,9 @@
+DELETE FROM siguiendos;
+DELETE FROM varietales;
+DELETE FROM maridaje_x_vino;
+DELETE FROM vinos;
+DELETE FROM bodegas;
+DELETE FROM enofilos;
+DELETE FROM usuarios;
+DELETE FROM maridajes;
+DELETE FROM tipos_uva;

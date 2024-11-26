@@ -1,9 +1,6 @@
 package dsi.utn.ppai.modelo;
 
-import dsi.utn.ppai.utilidades.VinoDataHolder;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,7 +10,10 @@ import java.util.Objects;
 @Getter
 @Setter
 @AllArgsConstructor
+@Builder
+@ToString
 public class Bodega {
+    private int idBodega;
     private float[] coordenadasUbicacion;
     private String apiUrl;
     private String descripcion;
@@ -24,6 +24,8 @@ public class Bodega {
     private List<Vino> vinos;
 
     public void agregarVino(Vino vino) {
+        System.out.println(vino);
+        System.out.println(vinos.getClass());
         vinos.add(vino);
     }
 
@@ -61,19 +63,27 @@ public class Bodega {
         return (Objects.equals(nombre, this.nombre));
     }
 
-    public void actualizarVinos(List<VinoDataHolder> vinoDataHolders, LocalDate fechaActual) {
-        for (Vino vino : this.vinos) {
-            for (VinoDataHolder vinoDTO : vinoDataHolders) {
-                if (vino.existeVino(vinoDTO.getNombre(), vinoDTO.getAnada())) {
-                    vinoDTO.setActualizable(true);
+    // TODO: DESACOPLAR EL DTO DEL GESTOR DE BODEGA
+    // devuelve true si encontró un vino para actualizar con los datos del DTO
 
-                    vino.setImagenEtiqueta(vinoDTO.getImagenEtiqueta());
-                    vino.setPrecioARS(vinoDTO.getPrecioARS());
-                    vino.setNotaDeCataBodega(vinoDTO.getNotaDeCataBodega());
-                    vino.setFechaActualizacion(fechaActual);
-                }
+    /**
+     * Actualiza un vino a la vez, si es que lo encuentra
+     * @params datos de un vino nuevo y la fecha actual
+     * @return TRUE si es que encontró un vino con esas características y lo actualizó.
+     * FALSE si es que no encontró un vino con esos datos.
+     */
+    public boolean actualizarVino(String nombreVino, int anada, String imagenEtiqueta, float precioARS, String notaCataBodega, LocalDate fechaActual){
+        for (Vino vino : this.vinos){
+            if (vino.existeVino(nombreVino, anada)){
+
+                vino.setImagenEtiqueta(imagenEtiqueta);
+                vino.setPrecioARS(precioARS);
+                vino.setNotaDeCataBodega(notaCataBodega);
+                vino.setFechaActualizacion(fechaActual);
+                return true;
             }
         }
+        return false;
     }
 
     public void actualizarFechaBodega(LocalDate now) {

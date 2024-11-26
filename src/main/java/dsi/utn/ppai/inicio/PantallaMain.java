@@ -32,15 +32,16 @@ public class PantallaMain implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         PantallaMain.applicationContext = FXMain.getApplicationContext();
-        //PantallaMain.applicationContext = new SpringApplicationBuilder(PpaiApplication.class).run();
 
     }
 
     public static void volverAInicio(Stage stage) throws IOException {
-        PantallaMain.stage = stage;
+        FXMain.setStage(stage);
+
         FXMLLoader loader = new FXMLLoader(PpaiApplication.class.getResource("/templates/main.fxml"));
         loader.setControllerFactory(PantallaMain.getApplicationContext()::getBean);
         Scene escena = new Scene(loader.load());
+
         FXMain.getStage().setScene(escena);
         stage.show();
     }
@@ -48,6 +49,7 @@ public class PantallaMain implements Initializable {
     @FXML
     public void opcionImportarNovedades(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+
         PantallaDeImportarVinos.opcionImportarVino(stage);
     }
 

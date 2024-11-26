@@ -14,16 +14,19 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 
 
 //
-@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
+@ComponentScan("dsi.utn.ppai.repositorios")
+@SpringBootApplication//(exclude = { DataSourceAutoConfiguration.class })
 public class FXMain extends Application {
 
     @Getter
     private static ConfigurableApplicationContext applicationContext;
 
     @Getter
+    @Setter
     private static Stage stage;
 
     @Override

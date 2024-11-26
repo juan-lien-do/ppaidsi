@@ -1,33 +1,93 @@
-package dsi.utn.ppai.utilidades;
+package dsi.utn.ppai.persistencia;
 
+import dsi.utn.ppai.persistencia.entidades.BodegaEntity;
+import dsi.utn.ppai.persistencia.entidades.MaridajeEntity;
+import dsi.utn.ppai.inicio.FXMain;
+import dsi.utn.ppai.persistencia.mappers.MapperPersistencia;
 import dsi.utn.ppai.modelo.*;
-import lombok.Getter;
+import dsi.utn.ppai.persistencia.repositorios.*;
+import org.springframework.context.ApplicationContext;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-public class FalsaBaseDeDatos {
-    private List<Bodega> bodegas;
-    private List<Vino> vinos;
-    private List<Maridaje> maridajes;
-    private List<TipoUva> tiposUva;
-    private List<Enofilo> enofilos;
-    private static FalsaBaseDeDatos falsaBaseDeDatos;
+/**
+ * Clase que se encarga de persistir las clases del modelo.
+ * <p>Conoce a los repositorios y les delega la implementación de la persistencia.</p>
+ * Conseguir instancia: <pre>{@code AdministradorBaseDeDatos.getInstance();}</pre>
+ */
+public class AdministradorBaseDeDatos {
+    private BodegaRepository bodegaRepository;
+    private EnofiloRepository enofiloRepository;
+    private MaridajeRepository maridajeRepository;
+    private SiguiendoRepository siguiendoRepository;
+    private TiposUvaRepository tiposUvaRepository;
+    private UsuariosRepository usuariosRepository;
+    private VarietalesRepository varietalesRepository;
+    private VinoRepository vinoRepository;
 
-    public static FalsaBaseDeDatos getInstance() {
+    private List<Bodega> bodegas = new ArrayList<>();
+    private List<Vino> vinos = new ArrayList<>();
+    private List<Maridaje> maridajes = new ArrayList<>();
+    private List<TipoUva> tiposUva = new ArrayList<>();
+    private List<Enofilo> enofilos = new ArrayList<>();
+    private static AdministradorBaseDeDatos falsaBaseDeDatos;
+
+    public static AdministradorBaseDeDatos getInstance() {
         if (falsaBaseDeDatos == null) {
-            falsaBaseDeDatos = new FalsaBaseDeDatos();
+            falsaBaseDeDatos = new AdministradorBaseDeDatos();
         }
         return falsaBaseDeDatos;
     }
 
-    public void agregarNuevoVino(Vino vino){
-        this.vinos.add(vino);
+    // TODO: PONER PERSISTENCIA AL GUARDAR LOS VINOS NUEVOS, LOS VINOS VIEJOS Y LA FECHA DE CONSULTA DE LA BODEGA
+    public void persistirCambiosBodegaYVinos(Bodega bodega){
+        // buscar entidades extra para poder construir las entidades de nuevo
+        List<MaridajeEntity> maridajeEntities = maridajeRepository.findAll();
+        BodegaEntity bodegaEntity = MapperPersistencia.fromModel(bodega, maridajeEntities);
+        bodegaRepository.save(bodegaEntity);
+
+
+        maridajeRepository.saveAll(maridajeEntities);
+
     }
 
-    private FalsaBaseDeDatos() {
+    private AdministradorBaseDeDatos() {
+        ApplicationContext context = FXMain.getApplicationContext();
+        this.bodegaRepository = context.getBean(BodegaRepository.class);
+        this.maridajeRepository = context.getBean(MaridajeRepository.class);
+        this.enofiloRepository = context.getBean(EnofiloRepository.class);
+        this.tiposUvaRepository = context.getBean(TiposUvaRepository.class);
+
+
+        //System.out.println(bodegaRepository.findAll());
+
+        // inicializarConDatosMock();
+    }
+
+
+    public List<Bodega> getBodegas() {
+        return bodegaRepository.findAll().stream().map(MapperPersistencia::fromEntity).toList();
+    }
+
+    /*public List<Vino> getVinos() {
+        return vinoRepository.findAll().stream().map(MapperPersistencia::fromEntity).toList();
+    }*/
+
+    public List<Maridaje> getMaridajes() {
+        return maridajeRepository.findAll().stream().map(MapperPersistencia::fromEntity).toList();
+    }
+
+    public List<TipoUva> getTiposUva() {
+        return tiposUvaRepository.findAll().stream().map(MapperPersistencia::fromEntity).toList();
+    }
+
+    public List<Enofilo> getEnofilos() {
+        return MapperPersistencia.fromEntities(enofiloRepository.findAll(), bodegaRepository.findAll());
+    }
+
+    private void inicializarConDatosMock(){
         List<TipoUva> tiposUvaXD = new ArrayList<>();
         tiposUvaXD.add(new TipoUva("La uva Malbec es una variedad de uva tinta que ha ganado popularidad en todo el mundo, especialmente en Argentina, aunque sus orígenes se encuentran en Francia",
                 "Malbec"));
@@ -84,18 +144,18 @@ public class FalsaBaseDeDatos {
                 "Aurora Boreal", "Equilibrado y elegante", 5800,
                 List.of(new Varietal(null, 86, tiposUva.get(0))), null);
         Vino vino9 = new Vino(2020, LocalDate.now().minusDays(300),
-                 "Crepúsculo Sereno", "Textura aterciopelada y redonda", 5900,
+                "Crepúsculo Sereno", "Textura aterciopelada y redonda", 5900,
                 List.of(new Varietal(null, 91, tiposUva.get(2))), null);
 
-        vino1.setBodega(bodegasXD.get(1));bodegasXD.get(1).agregarVino(vino1);
-        vino7.setBodega(bodegasXD.get(1));bodegasXD.get(1).agregarVino(vino7);
-        vino4.setBodega(bodegasXD.get(1));bodegasXD.get(1).agregarVino(vino4);
-        vino2.setBodega(bodegasXD.get(2));bodegasXD.get(2).agregarVino(vino2);
-        vino5.setBodega(bodegasXD.get(2));bodegasXD.get(2).agregarVino(vino5);
-        vino8.setBodega(bodegasXD.get(2));bodegasXD.get(2).agregarVino(vino8);
-        vino3.setBodega(bodegasXD.get(0));bodegasXD.get(0).agregarVino(vino3);
-        vino6.setBodega(bodegasXD.get(0));bodegasXD.get(0).agregarVino(vino6);
-        vino9.setBodega(bodegasXD.get(0));bodegasXD.get(0).agregarVino(vino9);
+        vino1.setBodega(bodegasXD.get(1));  bodegasXD.get(1).agregarVino(vino1);
+        vino7.setBodega(bodegasXD.get(1));  bodegasXD.get(1).agregarVino(vino7);
+        vino4.setBodega(bodegasXD.get(1));  bodegasXD.get(1).agregarVino(vino4);
+        vino2.setBodega(bodegasXD.get(2));  bodegasXD.get(2).agregarVino(vino2);
+        vino5.setBodega(bodegasXD.get(2));  bodegasXD.get(2).agregarVino(vino5);
+        vino8.setBodega(bodegasXD.get(2));  bodegasXD.get(2).agregarVino(vino8);
+        vino3.setBodega(bodegasXD.get(0));  bodegasXD.get(0).agregarVino(vino3);
+        vino6.setBodega(bodegasXD.get(0));  bodegasXD.get(0).agregarVino(vino6);
+        vino9.setBodega(bodegasXD.get(0));  bodegasXD.get(0).agregarVino(vino9);
 
         this.bodegas = bodegasXD;
         this.vinos = new ArrayList<>();

@@ -9,7 +9,7 @@
     <children>
         <AnchorPane>
             <children>
-                <Label layoutX="290.0" layoutY="63.0" prefHeight="26.0" prefWidth="257.0" text="Bienvenido de vuelta,">
+                <Label layoutX="290.0" layoutY="63.0" prefHeight="26.0" prefWidth="261.0" text="Bienvenido de vuelta,">
                     <font>
                         <Font name="Arial" size="22.0" />
                     </font>
@@ -24,12 +24,12 @@
                         <Font size="24.0" />
                     </font>
                 </Button>
-                <Button layoutX="158.0" layoutY="240.0" mnemonicParsing="false" onAction="#opcionNoImplementada" text="Validar identidad de sommelier" textFill="#a20021">
+                <Button layoutX="158.0" layoutY="240.0" mnemonicParsing="false" onAction="#opcionNoImplementada" prefHeight="51.0" prefWidth="484.0" text="Validar identidad de sommelier" textFill="#a20021">
                     <font>
                         <Font size="24.0" />
                     </font>
                 </Button>
-                <Button layoutX="158.0" layoutY="300.0" mnemonicParsing="false" onAction="#opcionNoImplementada" text="Registrar vinos" textFill="#a20021">
+                <Button alignment="CENTER" layoutX="158.0" layoutY="300.0" mnemonicParsing="false" onAction="#opcionNoImplementada" prefHeight="51.0" prefWidth="484.0" text="Registrar vinos" textFill="#a20021">
                     <font>
                         <Font size="24.0" />
                     </font>

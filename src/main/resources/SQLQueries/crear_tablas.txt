@@ -1,0 +1,81 @@
+CREATE TABLE bodegas (
+    id_bodega INTEGER PRIMARY KEY,
+    api_url VARCHAR(100),
+    descripcion VARCHAR(150),
+    historia VARCHAR(200) NULL,
+    nombre VARCHAR(60),
+    periodo_actualizacion INTEGER,
+    ultima_actualizacion UNSIGNED BIG INT
+
+);
+
+CREATE TABLE tipos_uva (
+    id_tipo_uva INTEGER PRIMARY KEY,
+    descripcion VARCHAR(200),
+    nombre VARCHAR(50)
+);
+
+CREATE TABLE usuarios (
+    id_usuario INTEGER PRIMARY KEY,
+    contrasena VARCHAR(150),
+    nombre VARCHAR(50),
+    premium TINYINT(1)
+);
+
+CREATE TABLE vinos (
+    id_vino INTEGER PRIMARY KEY,
+    anada INTEGER,
+    imagen_etiqueta VARCHAR(150),
+    fecha_actualizacion UNSIGNED BIG INT,
+    nombre VARCHAR(100),
+    nota_cata_bodega VARCHAR(200),
+    precio_ars FLOAT,
+    bodega_id INTEGER,
+    FOREIGN KEY (bodega_id) REFERENCES bodegas(id_bodega)
+);
+
+CREATE TABLE maridajes (
+    id_maridaje INTEGER PRIMARY KEY,
+    descripcion VARCHAR(200) NULL,
+    nombre VARCHAR(50)
+);
+
+
+CREATE TABLE maridaje_x_vino (
+    id_maridaje_vino INTEGER PRIMARY KEY,
+    maridaje_id INTEGER,
+    vino_id INTEGER,
+    FOREIGN KEY (maridaje_id) REFERENCES maridajes(id_maridaje),
+    FOREIGN KEY (vino_id) REFERENCES vinos(id_vino)
+);
+
+CREATE TABLE enofilos (
+    id_enofilo INTEGER PRIMARY KEY,
+    apellido VARCHAR(50),
+    nombre VARCHAR(50),
+    usuario_id INTEGER,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id_usuario)
+);
+
+
+CREATE TABLE siguiendos (
+    id_siguiendo INTEGER PRIMARY KEY,
+    fecha_fin UNSIGNED BIG INT,
+    fecha_inicio UNSIGNED BIG INT,
+    enofilo_sigue_id INTEGER,
+    enofilo_seguido_id INTEGER NULL,
+    bodega_seguida_id INTEGER NULL,
+    FOREIGN KEY (enofilo_sigue_id) REFERENCES enofilos(id_enofilo),
+    FOREIGN KEY (enofilo_seguido_id) REFERENCES enofilos(id_enofilo),
+    FOREIGN KEY (bodega_seguida_id) REFERENCES bodegas(id_bodega)
+);
+
+CREATE TABLE varietales (
+    id_varietal INTEGER PRIMARY KEY,
+    descripcion VARCHAR(200),
+    porcentaje_composicion INTEGER,
+    tipo_uva_id INTEGER,
+    vino_id INTEGER,
+    FOREIGN KEY (tipo_uva_id) REFERENCES tipos_uva(id_tipo_uva),
+    FOREIGN KEY (vino_id) REFERENCES vinos(id_vino)
+);
