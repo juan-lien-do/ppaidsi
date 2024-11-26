@@ -118,16 +118,6 @@ public class GestorImportacionVinos implements ISujetoNotificacion {
                 }
             }
 
-            for (VinoDataHolder vinoDataHolder: vinosDTO){
-                if (vinoDataHolder.isActualizable()){
-
-                } else {
-
-                };
-            }
-
-
-
             //mostrar cambios
 
             pantallaDeImportarVinos.mostrarResumenDeVinos(bodegaSeleccionada.getNombre(),
