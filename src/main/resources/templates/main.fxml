@@ -3,48 +3,75 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dsi.utn.ppai.inicio.PantallaMain">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: FFCDB2;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dsi.utn.ppai.inicio.PantallaMain">
     <children>
         <AnchorPane>
             <children>
-                <Label layoutX="290.0" layoutY="63.0" prefHeight="26.0" prefWidth="261.0" text="Bienvenido de vuelta,">
+                <Label layoutX="316.0" layoutY="106.0" prefHeight="26.0" prefWidth="169.0" text="Menú de acción">
                     <font>
                         <Font name="Arial" size="22.0" />
                     </font>
                 </Label>
-                <Label layoutX="325.0" layoutY="90.0" prefHeight="26.0" prefWidth="143.0" text="administrador.">
-                    <font>
-                        <Font name="Arial" size="22.0" />
-                    </font>
-                </Label>
-                <Button fx:id="botonCTA" layoutX="158.0" layoutY="180.0" mnemonicParsing="false" onAction="#opcionImportarNovedades" text="Importar actualizacion de vinos de bodega" textFill="#a20021">
+                <Button fx:id="botonCTA" layoutX="158.0" layoutY="180.0" mnemonicParsing="false" onAction="#opcionImportarNovedades" style="-fx-background-color: FFB4A2;" text="Importar actualizacion de vinos de bodega">
                     <font>
                         <Font size="24.0" />
                     </font>
                 </Button>
-                <Button layoutX="158.0" layoutY="240.0" mnemonicParsing="false" onAction="#opcionNoImplementada" prefHeight="51.0" prefWidth="484.0" text="Validar identidad de sommelier" textFill="#a20021">
+                <Button layoutX="158.0" layoutY="240.0" mnemonicParsing="false" onAction="#opcionNoImplementada" prefHeight="51.0" prefWidth="484.0" style="-fx-background-color: FFB4A2;" text="Validar identidad de sommelier">
                     <font>
                         <Font size="24.0" />
                     </font>
                 </Button>
-                <Button alignment="CENTER" layoutX="158.0" layoutY="300.0" mnemonicParsing="false" onAction="#opcionNoImplementada" prefHeight="51.0" prefWidth="484.0" text="Registrar vinos" textFill="#a20021">
+                <Button alignment="CENTER" layoutX="158.0" layoutY="300.0" mnemonicParsing="false" onAction="#opcionNoImplementada" prefHeight="51.0" prefWidth="484.0" style="-fx-background-color: FFB4A2;" text="Registrar vinos">
                     <font>
                         <Font size="24.0" />
                     </font>
                 </Button>
-                <Button layoutX="350.0" layoutY="540.0" mnemonicParsing="false" onAction="#cerrarVentana" text="Salir">
-                    <font>
-                        <Font size="20.0" />
-                    </font>
-                </Button>
+                <AnchorPane>
+               <Rectangle arcHeight="5.0" arcWidth="5.0" height="44.0" layoutX="502.0" layoutY="11.0" stroke="BLACK" strokeType="INSIDE" width="182.0">
+                  <fill>
+                     <LinearGradient endX="1.0" endY="1.0">
+                        <stops>
+                           <Stop>
+                              <color>
+                                 <Color red="0.49049708247184753" green="0.6517665982246399" blue="0.8026315569877625" />
+                              </color>
+                           </Stop>
+                           <Stop offset="1.0">
+                              <color>
+                                 <Color red="1.0" green="1.0" blue="1.0" />
+                              </color>
+                           </Stop>
+                        </stops>
+                     </LinearGradient>
+                  </fill>
+               </Rectangle>
+                    <Circle fill="WHITE" layoutX="510.0" layoutY="33.0" radius="29.0" stroke="BLACK" strokeType="INSIDE" />
+                    <Ellipse fill="#d7d7d7" layoutX="510.0" layoutY="45.0" radiusX="21.0" radiusY="13.0" stroke="BLACK" strokeType="INSIDE" />
+                    <Circle fill="WHITE" layoutX="510.0" layoutY="27.0" radius="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                    <Circle fill="#bcbcbc" layoutX="510.0" layoutY="27.0" radius="13.0" stroke="BLACK" strokeType="INSIDE" />
+                    <Label layoutX="545.0" layoutY="12.0" prefHeight="44.0" prefWidth="169.0" text="Martín">
+                        <font>
+                            <Font name="Arial" size="22.0" />
+                        </font>
+                    </Label>
+                </AnchorPane>
+
             </children>
         </AnchorPane>
         <AnchorPane>
          <children>
-            <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true" />
          </children>
         </AnchorPane>
+          <Button layoutX="682.0" layoutY="7.0" mnemonicParsing="false" onAction="#cerrarVentana" prefHeight="51.0" prefWidth="70.0" style="-fx-background-color: B5838D;" text="Salir" textFill="WHITE">
+              <font>
+                  <Font size="20.0" />
+              </font>
+          </Button>
     </children>
 </AnchorPane>

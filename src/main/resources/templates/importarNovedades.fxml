@@ -2,9 +2,11 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dsi.utn.ppai.pantalla.PantallaDeImportarVinos">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: FFCDB2;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dsi.utn.ppai.pantalla.PantallaDeImportarVinos">
     <children>
         <AnchorPane fx:id="divEspera" layoutX="153.0" layoutY="249.0">
          <children>
@@ -15,26 +17,26 @@
             </Label>
          </children>
         </AnchorPane>
-        <AnchorPane fx:id="divSeleccionBodega" visible="false">
+        <AnchorPane fx:id="divSeleccionBodega" layoutX="28.0" visible="false">
             <children>
-                <Label layoutX="288.0" layoutY="87.0" text="Seleccione las bodegas">
+                <Label layoutX="269.0" layoutY="87.0" text="Seleccione las bodegas">
                     <font>
                         <Font size="22.0" />
                     </font>
                 </Label>
-                <Label layoutX="346.0" layoutY="119.0" text="a actualizar">
+                <Label layoutX="327.0" layoutY="119.0" text="a actualizar">
                     <font>
                         <Font size="22.0" />
                     </font>
                 </Label>
-                <Button layoutX="301.0" layoutY="384.0" mnemonicParsing="false" onAction="#tomarSeleccionBodega" text="Consumir datos de bodega" />
-                <Button layoutX="356.0" layoutY="429.0" mnemonicParsing="false" onAction="#volverAtras" text="Volver" />
-            <ListView fx:id="listViewBodegas" layoutX="281.0" layoutY="167.0" prefHeight="200.0" prefWidth="200.0" />
+                <Button layoutX="301.0" layoutY="384.0" mnemonicParsing="false" onAction="#tomarSeleccionBodega" style="-fx-background-color: FFB4A2;" text="Consumir datos de bodega" />
+                <Button layoutX="356.0" layoutY="429.0" mnemonicParsing="false" onAction="#volverAtras" style="-fx-background-color: B5838D;" text="Volver" textFill="WHITE" />
+            <ListView fx:id="listViewBodegas" layoutX="281.0" layoutY="167.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: CCCCCC;" />
             </children>
         </AnchorPane>
         <AnchorPane fx:id="divResumen" visible="false">
          <children>
-            <Label layoutX="82.0" layoutY="9.0" text="Resumen de actualización de bodega:" underline="true">
+            <Label layoutY="9.0" prefHeight="36.0" prefWidth="437.0" text="Resumen de actualización:" underline="true">
                <font>
                   <Font size="36.0" />
                </font>
@@ -44,9 +46,9 @@
                   <Font size="24.0" />
                </font>
             </Label>
-             <ListView fx:id="listViewVinosNuevos" layoutX="415.0" layoutY="167.0" prefHeight="200.0" prefWidth="200.0" />
-             <ListView fx:id="listViewVinosCambiados" layoutX="148.0" layoutY="167.0" prefHeight="200.0" prefWidth="200.0" />
-             <Button layoutX="356.0" layoutY="429.0" mnemonicParsing="false" onAction="#volverAtras" text="Volver" />
+             <ListView fx:id="listViewVinosNuevos" layoutX="415.0" layoutY="167.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: CCCCCC;" />
+             <ListView fx:id="listViewVinosCambiados" layoutX="148.0" layoutY="167.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: CCCCCC;" />
+             <Button layoutX="356.0" layoutY="429.0" mnemonicParsing="false" onAction="#volverAtras" style="-fx-background-color: B5838D;" text="Volver" textFill="WHITE" />
             <Label layoutX="175.0" layoutY="133.0" text="Vinos actualizados">
                <font>
                   <Font size="18.0" />
@@ -62,13 +64,42 @@
         <AnchorPane fx:id="divNoHayBodegas" visible="false">
             <children>
 
-                <Button layoutX="356.0" layoutY="429.0" mnemonicParsing="false" onAction="#volverAtras" text="Volver" />
+                <Button layoutX="356.0" layoutY="429.0" mnemonicParsing="false" onAction="#volverAtras" style="-fx-background-color: B5838D;" text="Volver" textFill="WHITE" />
             <Label layoutX="214.0" layoutY="210.0" text="No hay bodegas para actualizar">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
             </children>
+        </AnchorPane>
+        <AnchorPane>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="44.0" layoutX="502.0" layoutY="11.0" stroke="BLACK" strokeType="INSIDE" width="182.0">
+                <fill>
+                    <LinearGradient endX="1.0" endY="1.0">
+                        <stops>
+                            <Stop>
+                                <color>
+                                    <Color red="0.49049708247184753" green="0.6517665982246399" blue="0.8026315569877625" />
+                                </color>
+                            </Stop>
+                            <Stop offset="1.0">
+                                <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                </color>
+                            </Stop>
+                        </stops>
+                    </LinearGradient>
+                </fill>
+            </Rectangle>
+            <Circle fill="WHITE" layoutX="510.0" layoutY="33.0" radius="29.0" stroke="BLACK" strokeType="INSIDE" />
+            <Ellipse fill="#d7d7d7" layoutX="510.0" layoutY="45.0" radiusX="21.0" radiusY="13.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fill="WHITE" layoutX="510.0" layoutY="27.0" radius="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            <Circle fill="#bcbcbc" layoutX="510.0" layoutY="27.0" radius="13.0" stroke="BLACK" strokeType="INSIDE" />
+            <Label layoutX="545.0" layoutY="12.0" prefHeight="44.0" prefWidth="169.0" text="Martín">
+                <font>
+                    <Font name="Arial" size="22.0" />
+                </font>
+            </Label>
         </AnchorPane>
     </children>
 </AnchorPane>
