@@ -1,6 +1,6 @@
-package dsi.utn.ppai.repositorios;
+package dsi.utn.ppai.persistencia.repositorios;
 
-import dsi.utn.ppai.entidades.VinoEntity;
+import dsi.utn.ppai.persistencia.entidades.VinoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

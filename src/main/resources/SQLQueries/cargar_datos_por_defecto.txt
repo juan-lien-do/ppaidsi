@@ -36,15 +36,15 @@ INSERT INTO vinos (id_vino, anada, fecha_actualizacion, nombre, nota_cata_bodega
 
 -- Insertar varietales y asociarlos a tipos de uva y vinos
 INSERT INTO varietales (id_varietal, descripcion, porcentaje_composicion, tipo_uva_id, vino_id) VALUES
-(1, NULL, 87, 2, 1),
-(2, NULL, 90, 1, 2),
-(3, NULL, 88, 2, 3),
-(4, NULL, 80, 1, 4),
-(5, NULL, 92, 3, 5),
-(6, NULL, 89, 2, 6),
-(7, NULL, 85, 3, 7),
-(8, NULL, 86, 1, 8),
-(9, NULL, 91, 3, 9);
+(1, "cierta descripción", 87, 2, 1),
+(2, "cierta descripción", 90, 1, 2),
+(3, "cierta descripción", 88, 2, 3),
+(4, "cierta descripción", 80, 1, 4),
+(5, "cierta descripción", 92, 3, 5),
+(6, "cierta descripción", 89, 2, 6),
+(7, "cierta descripción", 85, 3, 7),
+(8, "cierta descripción", 86, 1, 8),
+(9, "cierta descripción", 91, 3, 9);
 
 -- Insertar enófilos y asociarlos a usuarios
 INSERT INTO enofilos (id_enofilo, apellido, nombre, usuario_id) VALUES

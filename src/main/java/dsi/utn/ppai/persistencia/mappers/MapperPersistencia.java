@@ -1,13 +1,11 @@
-package dsi.utn.ppai.mappers;
+package dsi.utn.ppai.persistencia.mappers;
 
-import dsi.utn.ppai.entidades.*;
 import dsi.utn.ppai.modelo.*;
-import org.springframework.cglib.core.Local;
+import dsi.utn.ppai.persistencia.entidades.*;
 
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -74,7 +72,6 @@ public class MapperPersistencia {
 
         vinoEntity.setVarietalEntities(vino.getVarietales().stream().map(x -> fromModel(x, vinoEntity)).toList());
 
-        // TODO maridaje
         List<MaridajeEntity> maridajesDelVino = maridajeEntities.stream()
                 .filter(marid -> vino.getMaridajes().stream()
                         .anyMatch(mariModel -> mariModel.getIdMaridaje() == marid.getIdMaridaje())).toList();
@@ -89,6 +86,7 @@ public class MapperPersistencia {
                 .descripcion(varietal.getDescripcion())
                 .porcentajeComposicion(varietal.getPorcentajeComposicion())
                 .tipoUvaEntity(fromModel(varietal.getTipoUva()))
+                .vinoEntity(vinoEntity)
                 .build();
     }
 
@@ -181,7 +179,6 @@ public class MapperPersistencia {
                 .apellido(enofiloEntity.getApellido())
                 .nombre(enofiloEntity.getNombre())
                 .usuario(fromEntity(enofiloEntity.getUsuarioEntities()))
-                // TODO siguiendos
                 .build();
     }
 
@@ -191,14 +188,13 @@ public class MapperPersistencia {
             .apellido(enofiloEntity.getApellido())
             .nombre(enofiloEntity.getNombre())
             .usuario(fromEntity(enofiloEntity.getUsuarioEntities()))
-            // TODO siguiendos
             .build();
     }
 
     // aca esta private para no mandarnos moco despues.
     // esta atado con alambre (hashmaps) para que no se quintupliquen los objetos
     private static Siguiendo fromEntity(SiguiendoEntity siguiendoEntity,
-                                       HashMap<Integer, Bodega> bodegas, HashMap<Integer, Enofilo> enofilos){
+                                        HashMap<Integer, Bodega> bodegas, HashMap<Integer, Enofilo> enofilos){
         Siguiendo sig = Siguiendo.builder()
                 .idSiguiendo(siguiendoEntity.getIdSiguiendo())
                 .fechaInicio(toLocalDate(siguiendoEntity.getFechaInicio()))

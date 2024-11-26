@@ -1,6 +1,5 @@
-package dsi.utn.ppai.entidades;
+package dsi.utn.ppai.persistencia.entidades;
 
-import dsi.utn.ppai.modelo.Usuario;
 import jakarta.persistence.*;
 import lombok.*;
 

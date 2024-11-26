@@ -1,11 +1,9 @@
 package dsi.utn.ppai.servicios;
 
-import dsi.utn.ppai.utilidades.VinoDataHolder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,7 +19,7 @@ import java.util.List;
  * <p>Gracias a Jackson puede parsear los arrays</p>
  */
 @Service
-public class InterfazAPI {
+public class ServicioAPIBodega {
     /**
      *
      * @param urlAPI el urlAPI de la bodega, al cual vamos a hacer la petición.

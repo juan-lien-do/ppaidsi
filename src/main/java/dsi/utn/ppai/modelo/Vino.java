@@ -13,7 +13,7 @@ import java.util.Objects;
 //@ToString
 @Builder
 public class Vino {
-    private int idVino;
+    private Integer idVino;
     private String imagenEtiqueta;
     private int anada;
     private LocalDate fechaActualizacion;
@@ -77,5 +77,9 @@ public class Vino {
                 ", varietales=" + varietales +
                 ", maridajes=" + maridajes +
                 '}';
+    }
+
+    public boolean esReciente(LocalDate fechaActual) {
+        return fechaActual == fechaActualizacion;
     }
 }

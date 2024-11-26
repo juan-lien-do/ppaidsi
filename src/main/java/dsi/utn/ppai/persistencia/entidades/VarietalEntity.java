@@ -1,4 +1,4 @@
-package dsi.utn.ppai.entidades;
+package dsi.utn.ppai.persistencia.entidades;
 
 import jakarta.persistence.*;
 import lombok.*;

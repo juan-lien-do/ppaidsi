@@ -1,28 +1,22 @@
-package dsi.utn.ppai.entidades;
+package dsi.utn.ppai.persistencia.entidades;
 
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-
 @Entity
-@Table(name = "maridajes")
+@Table(name = "tiposUva")
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MaridajeEntity {
+public class TipoUvaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idMaridaje")
-    private Integer idMaridaje;
+    @Column(name = "idTipoUva")
+    private Integer idTipoUva;
     @Column(name = "descripcion")
     private String descripcion;
     @Column(name = "nombre")
     private String nombre;
-
-
-    @ManyToMany(mappedBy = "maridajeEntities")
-    private List<VinoEntity> vinoEntities;
 }

@@ -1,11 +1,11 @@
-package dsi.utn.ppai.utilidades;
+package dsi.utn.ppai.persistencia;
 
-import dsi.utn.ppai.entidades.BodegaEntity;
-import dsi.utn.ppai.entidades.MaridajeEntity;
+import dsi.utn.ppai.persistencia.entidades.BodegaEntity;
+import dsi.utn.ppai.persistencia.entidades.MaridajeEntity;
 import dsi.utn.ppai.inicio.FXMain;
-import dsi.utn.ppai.mappers.MapperPersistencia;
+import dsi.utn.ppai.persistencia.mappers.MapperPersistencia;
 import dsi.utn.ppai.modelo.*;
-import dsi.utn.ppai.repositorios.*;
+import dsi.utn.ppai.persistencia.repositorios.*;
 import org.springframework.context.ApplicationContext;
 
 import java.time.LocalDate;
@@ -47,6 +47,9 @@ public class AdministradorBaseDeDatos {
         List<MaridajeEntity> maridajeEntities = maridajeRepository.findAll();
         BodegaEntity bodegaEntity = MapperPersistencia.fromModel(bodega, maridajeEntities);
         bodegaRepository.save(bodegaEntity);
+
+
+        maridajeRepository.saveAll(maridajeEntities);
 
     }
 

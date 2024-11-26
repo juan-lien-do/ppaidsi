@@ -1,10 +1,8 @@
-package dsi.utn.ppai.entidades;
+package dsi.utn.ppai.persistencia.entidades;
 
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Entity

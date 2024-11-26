@@ -1,4 +1,4 @@
-package dsi.utn.ppai.utilidades;
+package dsi.utn.ppai.servicios;
 
 import lombok.Getter;
 import lombok.Setter;
