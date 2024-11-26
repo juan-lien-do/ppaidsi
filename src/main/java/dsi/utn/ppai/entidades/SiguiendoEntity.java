@@ -18,15 +18,15 @@ public class SiguiendoEntity {
     @Column(name = "idSiguiendo")
     private Integer idSiguiendo;
     @Column(name = "fechaFin")
-    private LocalDate fechaFin;
+    private Long fechaFin;
     @Column(name = "fechaInicio")
-    private LocalDate fechaInicio;
+    private Long fechaInicio;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "bodegaSeguidaId")
     private BodegaEntity bodegaEntity;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "enofiloSeguidoId")
     private EnofiloEntity enofiloEntity; // este seria el enofilo al que estan siguiendo
 }

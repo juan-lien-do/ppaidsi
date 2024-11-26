@@ -24,12 +24,12 @@ public class VinoEntity {
     @Column(name = "anada")
     private Integer anada;
     @Column(name = "fechaActualizacion")
-    private LocalDate fechaActualizacion;
+    private Long fechaActualizacion;
     @Column(name = "nombre")
     private String nombre;
-    @Column(name = "notaDeCataBodega")
+    @Column(name = "notaCataBodega")
     private String notaDeCataBodega;
-    @Column(name = "precioArs")
+    @Column(name = "precio_ars")
     private Float precioARS;
 
 
@@ -39,7 +39,7 @@ public class VinoEntity {
     // perdon por usar fetchType Eager es que tenemos poco tiempo
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "maridajeXVino", // Nombre de la tabla intermedia
+            name = "maridaje_x_vino", // creo que es un bug pero no funciona el parseo de las mayúsculas a guiones bajos
             joinColumns = @JoinColumn(name = "vinoId"),
             inverseJoinColumns = @JoinColumn(name = "maridajeId")
     )
@@ -64,15 +64,3 @@ public class VinoEntity {
                 '}';
     }
 }
-
-
-/*
-@ManyToMany
-    @JoinTable(
-            name = "maridajeXVino",
-            joinColumns = @JoinColumn(name = "vinoId"),
-            inverseJoinColumns = @JoinColumn(name = "maridajeId")
-    )
-
-@OneToMany(mappedBy = "vinoEntity")
-* */

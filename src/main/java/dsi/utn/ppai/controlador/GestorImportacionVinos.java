@@ -7,12 +7,13 @@ import dsi.utn.ppai.servicios.InterfazAPI;
 import dsi.utn.ppai.servicios.InterfazNotificacionPush;
 import dsi.utn.ppai.utilidades.AdministradorBaseDeDatos;
 import dsi.utn.ppai.utilidades.VinoDataHolder;
-import jakarta.transaction.Transactional;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.client.ResourceAccessException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Getter
@@ -63,11 +64,28 @@ public class GestorImportacionVinos {
 
     public List<VinoDataHolder> obtenerActualizaciones() {
         String url = this.bodegaSeleccionada.getApiUrl();
-        return interfazAPI.consultarNovedades(url);
+        List<VinoDataHolder> novedades = new ArrayList<>();
+        try{
+            novedades = interfazAPI.consultarNovedades(url);
+        } catch (ResourceAccessException resourceAccessException){
+            throw resourceAccessException;
+            //this.pantallaDeImportarVinos.noFuncionaSistemaBodega();
+        }
+        return novedades;
     }
 
     private void actualizarVinos(List<VinoDataHolder> vinosDTO) {
-        this.bodegaSeleccionada.actualizarVinos(vinosDTO, this.fechaActual);
+
+        for (VinoDataHolder vino : vinosDTO){
+            // Bodega seleccionada devuelve true si encontró un vino con ese nombre y añada
+            // y actualiza los datos
+            boolean esActualizable = this.bodegaSeleccionada.actualizarVino(vino.getNombre(),
+                    vino.getAnada(), vino.getImagenEtiqueta(), vino.getPrecioARS(),
+                    vino.getNotaDeCataBodega(), this.fechaActual);
+
+            vino.setActualizable(esActualizable);
+        }
+
     }
 
     public void tomarSeleccionBodega(String nombre) {
@@ -75,25 +93,40 @@ public class GestorImportacionVinos {
         List<VinoDataHolder> vinosDTO = null;
         //setear la bodega
         this.bodegaSeleccionada = this.buscarBodegaPorNombre(nombre);
-        //obtener actualizaciones
-        vinosDTO = this.obtenerActualizaciones();
-        // y hacer cosas con los vinosDTO
-        this.actualizarVinos(vinosDTO);
-        this.crearVinosNuevos(vinosDTO);
-        // act fecha bodega
-        this.bodegaSeleccionada.actualizarFechaBodega(fechaActual);
-        //mostrar cambios
+        try {
+            vinosDTO = this.obtenerActualizaciones();
+            // y hacer cosas con los vinosDTO
+            this.actualizarVinos(vinosDTO);
+            this.crearVinosNuevos(vinosDTO);
+            // act fecha bodega
+            this.bodegaSeleccionada.actualizarFechaBodega(fechaActual);
 
-        pantallaDeImportarVinos.mostrarResumenDeVinos(bodegaSeleccionada.getNombre(),
-                vinosDTO.stream().filter(x -> x.isActualizable()).map(x -> x.getNombre()).toList(),
-                vinosDTO.stream().filter(x -> !x.isActualizable()).map(x -> x.getNombre()).toList());
+            // persistencia
+            guardarCambiosBodega();
 
-        // aca va lo que falta
-        buscarSeguidoresDeBodega();
+
+            //mostrar cambios
+
+            pantallaDeImportarVinos.mostrarResumenDeVinos(bodegaSeleccionada.getNombre(),
+                    vinosDTO.stream().filter(x -> x.isActualizable()).map(x -> x.getNombre()).toList(),
+                    vinosDTO.stream().filter(x -> !x.isActualizable()).map(x -> x.getNombre()).toList());
+
+            // aca va lo que falta
+            buscarSeguidoresDeBodega();
+
+        } catch (ResourceAccessException resourceAccessException){
+            this.pantallaDeImportarVinos.noFuncionaSistemaBodega();
+        }
+
+    }
+
+    private void guardarCambiosBodega(){
+        AdministradorBaseDeDatos.getInstance().persistirCambiosBodegaYVinos(this.bodegaSeleccionada);
     }
 
     private void buscarSeguidoresDeBodega() {
         List<Enofilo> enofilos = AdministradorBaseDeDatos.getInstance().getEnofilos();
+        System.out.println(enofilos.toString());
         List<String> nomEnofilos = new ArrayList<>();
         for (Enofilo en : enofilos) {
             if (en.seguisABodega(bodegaSeleccionada)) {
@@ -120,11 +153,10 @@ public class GestorImportacionVinos {
     private void crearVino(VinoDataHolder vinoDTO, List<TipoUva> tipoUvaParticular, List<Maridaje> maridajeParticular) {
         // partir el dto antes de mandarselo al constructorr
 
+        // acá establecemos la doble dependencia vino-bodega
         Vino vinoParticular = new Vino(this.fechaActual, vinoDTO.getNombre(), vinoDTO.getAnada(), vinoDTO.getPrecioARS(),
                 vinoDTO.getNotaDeCataBodega(), vinoDTO.getDescripcionesVarietal(), vinoDTO.getPorcentajesComposicionVarietal(),
                 tipoUvaParticular, maridajeParticular, this.bodegaSeleccionada);
-        System.out.println(vinoParticular);
-        AdministradorBaseDeDatos.getInstance().agregarNuevoVino(vinoParticular);
     }
 
     private List<TipoUva> buscarTipoDeUva(List<String> nombreUva) {

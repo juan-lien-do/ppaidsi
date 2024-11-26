@@ -1,0 +1,9 @@
+DROP TABLE siguiendos;
+DROP TABLE varietales;
+DROP TABLE maridaje_x_vino;
+DROP TABLE vinos;
+DROP TABLE bodegas;
+DROP TABLE enofilos;
+DROP TABLE usuarios;
+DROP TABLE maridajes;
+DROP TABLE tipos_uva;

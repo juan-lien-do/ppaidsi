@@ -1,21 +1,22 @@
 package dsi.utn.ppai.utilidades;
 
-import dsi.utn.ppai.PpaiApplication;
+import dsi.utn.ppai.entidades.BodegaEntity;
+import dsi.utn.ppai.entidades.MaridajeEntity;
 import dsi.utn.ppai.inicio.FXMain;
 import dsi.utn.ppai.mappers.MapperPersistencia;
 import dsi.utn.ppai.modelo.*;
 import dsi.utn.ppai.repositorios.*;
-import jakarta.transaction.Transactional;
-import lombok.Getter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase que se encarga de persistir las clases del modelo.
+ * <p>Conoce a los repositorios y les delega la implementación de la persistencia.</p>
+ * Conseguir instancia: <pre>{@code AdministradorBaseDeDatos.getInstance();}</pre>
+ */
 public class AdministradorBaseDeDatos {
     private BodegaRepository bodegaRepository;
     private EnofiloRepository enofiloRepository;
@@ -26,16 +27,11 @@ public class AdministradorBaseDeDatos {
     private VarietalesRepository varietalesRepository;
     private VinoRepository vinoRepository;
 
-    //@Getter
-    private List<Bodega> bodegas;
-    //@Getter
-    private List<Vino> vinos;
-    //@Getter
-    private List<Maridaje> maridajes;
-    //@Getter
-    private List<TipoUva> tiposUva;
-    //@Getter
-    private List<Enofilo> enofilos;
+    private List<Bodega> bodegas = new ArrayList<>();
+    private List<Vino> vinos = new ArrayList<>();
+    private List<Maridaje> maridajes = new ArrayList<>();
+    private List<TipoUva> tiposUva = new ArrayList<>();
+    private List<Enofilo> enofilos = new ArrayList<>();
     private static AdministradorBaseDeDatos falsaBaseDeDatos;
 
     public static AdministradorBaseDeDatos getInstance() {
@@ -46,29 +42,23 @@ public class AdministradorBaseDeDatos {
     }
 
     // TODO: PONER PERSISTENCIA AL GUARDAR LOS VINOS NUEVOS, LOS VINOS VIEJOS Y LA FECHA DE CONSULTA DE LA BODEGA
-    public void agregarNuevoVino(Vino vino){
-        this.vinos.add(vino);
-    }
-
-    public void persistirNuevoVino(Vino vino){
-
-    }
-    public void persistirCambiosVino(Vino vino){
-
-    }
-
-    public void persistirCambiosBodega(Bodega bodega){
+    public void persistirCambiosBodegaYVinos(Bodega bodega){
+        // buscar entidades extra para poder construir las entidades de nuevo
+        List<MaridajeEntity> maridajeEntities = maridajeRepository.findAll();
+        BodegaEntity bodegaEntity = MapperPersistencia.fromModel(bodega, maridajeEntities);
+        bodegaRepository.save(bodegaEntity);
 
     }
 
     private AdministradorBaseDeDatos() {
         ApplicationContext context = FXMain.getApplicationContext();
         this.bodegaRepository = context.getBean(BodegaRepository.class);
+        this.maridajeRepository = context.getBean(MaridajeRepository.class);
+        this.enofiloRepository = context.getBean(EnofiloRepository.class);
+        this.tiposUvaRepository = context.getBean(TiposUvaRepository.class);
 
 
-        System.out.println(bodegaRepository.findAll());
-
-
+        //System.out.println(bodegaRepository.findAll());
 
         // inicializarConDatosMock();
     }

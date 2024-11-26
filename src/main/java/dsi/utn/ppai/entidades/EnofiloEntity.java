@@ -27,7 +27,7 @@ public class EnofiloEntity {
     @JoinColumn(name = "usuarioId")
     private UsuarioEntity usuarioEntities;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "enofiloSigueId")
     private List<SiguiendoEntity> siguiendoEntities;
 }

@@ -1,0 +1,101 @@
+-- Insertar tipos de uva
+INSERT INTO tipos_uva (id_tipo_uva, descripcion, nombre) VALUES
+(1, "La uva Malbec es una variedad de uva tinta que ha ganado popularidad en todo el mundo, especialmente en Argentina, aunque sus orígenes se encuentran en Francia", "Malbec"),
+(2, "Originaria de la región del Loira, Francia, es conocida por sus sabores a hierba, grosella espinosa, cítricos y, en algunos casos, notas minerales.", "Sauvignon Blanc"),
+(3, "En Italia, se llama Pinot Grigio y suele producir vinos ligeros y refrescantes con sabores a manzana y pera. En Alsacia, Francia, como Pinot Gris, puede ser más rico y especiado.", "Pinot Gris");
+
+-- Insertar maridajes
+INSERT INTO maridajes (id_maridaje, descripcion, nombre) VALUES
+(1, "Se recomienda el salame de Colonia Caroya.", "Salame"),
+(2, "Se recomienda el queso de Colonia Caroya.", "Queso"),
+(3, "Se recomienda pan casero", "Pan");
+
+-- Insertar usuarios
+INSERT INTO usuarios (id_usuario, contrasena, nombre, premium) VALUES
+(1, "pepe_ama_el_vino", "pepito123", 1),
+(2, "vino_con_soda", "calisteni213aPopular", 0),
+(3, "tina_patagonia", "incorrecta2024_", 0);
+
+-- Insertar bodegas (sin coordenadas)
+INSERT INTO bodegas (id_bodega, api_url, descripcion, historia, nombre, periodo_actualizacion, ultima_actualizacion) VALUES
+(1, "bodegagenial.com/api/", "Es una bodega muy feliz", "Inicia en 1789", "BodegaGenial", 14, 1731230000),
+(2, "bodegamar.com/api/", "Bodega con vista al mar", "Fundada en 1850", "BodegaMar", 14, 1731230000),
+(3, "bodegamontana.com/api/", "Bodega en las montañas", "Establecida en 1900", "BodegaMontaña", 14, 1732590000);
+
+-- Insertar vinos y asociarlos a bodegas
+INSERT INTO vinos (id_vino, anada, fecha_actualizacion, nombre, nota_cata_bodega, precio_ars, bodega_id) VALUES
+(1, 1997, 1731230000, "Suspiro de Otoño", "El vino está muy rico", 5000, 2),
+(2, 2001, 1731230000, "Vino de Primavera", "Notas florales y frescas", 4500, 3),
+(3, 2005, 1731230000, "Invierno Agradable", "Aroma a madera y vainilla", 6000, 1),
+(4, 2010, 1731230000, "Rocío Matinal", "Sabor afrutado y ligero", 5000, 2),
+(5, 2012, 1731230000, "Noche Estrellada", "Buena acidez y taninos suaves", 5200, 3),
+(6, 2015, 1731230000, "Ocaso Dorado", "Final largo y complejo", 5700, 1),
+(7, 2003, 1731230000, "Verano Ardiente", "Cuerpo robusto y especiado", 5500, 2),
+(8, 2018, 1731230000, "Aurora Boreal", "Equilibrado y elegante", 5800, 3),
+(9, 2020, 1731230000, "Crepúsculo Sereno", "Textura aterciopelada y redonda", 5900, 1);
+
+-- Insertar varietales y asociarlos a tipos de uva y vinos
+INSERT INTO varietales (id_varietal, descripcion, porcentaje_composicion, tipo_uva_id, vino_id) VALUES
+(1, NULL, 87, 2, 1),
+(2, NULL, 90, 1, 2),
+(3, NULL, 88, 2, 3),
+(4, NULL, 80, 1, 4),
+(5, NULL, 92, 3, 5),
+(6, NULL, 89, 2, 6),
+(7, NULL, 85, 3, 7),
+(8, NULL, 86, 1, 8),
+(9, NULL, 91, 3, 9);
+
+-- Insertar enófilos y asociarlos a usuarios
+INSERT INTO enofilos (id_enofilo, apellido, nombre, usuario_id) VALUES
+(1, "Spinetta", "Luis Alberto", 1),
+(2, "Cavani", "Edinson", 2),
+(3, "Stoessel", "Martina", 3);
+
+-- Insertar relaciones de "siguiendo" entre enófilos y bodegas
+INSERT INTO siguiendos (fecha_inicio, enofilo_sigue_id, bodega_seguida_id) VALUES
+(1732590000, 1, 1),
+(1732590000, 1, 3),
+(1732590000, 2, 2),
+(1732590000, 2, 3),
+(1732590000, 3, 2),
+(1732590000, 3, 1);
+
+-- Insertar relaciones de "siguiendo" entre enófilos
+INSERT INTO siguiendos (fecha_inicio, enofilo_sigue_id, enofilo_seguido_id) VALUES
+(1732590000, 1, 3),
+(1732590000, 3, 2),
+(1732590000, 2, 1);
+
+
+
+-- Relación de maridajes con el vino "Suspiro de Otoño" (Vino ID 1)
+INSERT INTO maridaje_x_vino (vino_id, maridaje_id) VALUES (1, 1);
+INSERT INTO maridaje_x_vino (vino_id, maridaje_id) VALUES (1, 2);
+
+-- Relación de maridajes con el vino "Vino de Primavera" (Vino ID 2)
+INSERT INTO maridaje_x_vino (vino_id, maridaje_id) VALUES (2, 1);
+INSERT INTO maridaje_x_vino (vino_id, maridaje_id) VALUES (2, 3);
+
+-- Relación de maridajes con el vino "Invierno Agradable" (Vino ID 3)
+INSERT INTO maridaje_x_vino (vino_id, maridaje_id) VALUES (3, 2);
+
+-- Relación de maridajes con el vino "Rocío Matinal" (Vino ID 4)
+INSERT INTO maridaje_x_vino (vino_id, maridaje_id) VALUES (4, 1);
+INSERT INTO maridaje_x_vino (vino_id, maridaje_id) VALUES (4, 3);
+
+-- Relación de maridajes con el vino "Noche Estrellada" (Vino ID 5)
+INSERT INTO maridaje_x_vino (vino_id, maridaje_id) VALUES (5, 2);
+
+-- Relación de maridajes con el vino "Ocaso Dorado" (Vino ID 6)
+INSERT INTO maridaje_x_vino (vino_id, maridaje_id) VALUES (6, 3);
+
+-- Relación de maridajes con el vino "Verano Ardiente" (Vino ID 7)
+INSERT INTO maridaje_x_vino (vino_id, maridaje_id) VALUES (7, 1);
+INSERT INTO maridaje_x_vino (vino_id, maridaje_id) VALUES (7, 3);
+
+-- Relación de maridajes con el vino "Aurora Boreal" (Vino ID 8)
+INSERT INTO maridaje_x_vino (vino_id, maridaje_id) VALUES (8, 2);
+
+-- Relación de maridajes con el vino "Crepúsculo Sereno" (Vino ID 9)
+INSERT INTO maridaje_x_vino (vino_id, maridaje_id) VALUES (9, 3);

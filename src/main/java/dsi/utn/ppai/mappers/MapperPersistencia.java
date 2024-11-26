@@ -2,14 +2,105 @@ package dsi.utn.ppai.mappers;
 
 import dsi.utn.ppai.entidades.*;
 import dsi.utn.ppai.modelo.*;
+import org.springframework.cglib.core.Local;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
 // podriamos dividir esta clase en muchas clases mas chiquitas pero no esta tan bueno ir de archivo en archivo
+
+/**
+ * Un mapper entre Entidad y Modelo
+ */
 public class MapperPersistencia {
+    private static final boolean DEBUG_MODE = false;
+
+    /**
+     * Conversión necesaria para que SQLITE no estalle.
+     * @param epochTimeMillis la cantidad de días que pasaron desde 1970
+     * @return fechaActual LocalDate
+     */
+    private static LocalDate toLocalDate(Long epochTimeMillis){
+        if (epochTimeMillis == null) return null;
+        Instant instant = Instant.ofEpochSecond(epochTimeMillis);
+        ZoneId zoneId = ZoneId.systemDefault(); // Use the system default time zone
+
+        LocalDate fechaActual = instant.atZone(zoneId).toLocalDate();
+
+        if (DEBUG_MODE) System.out.println(fechaActual.toString() + " " + epochTimeMillis);
+        return fechaActual;
+    }
+
+    private static Long toUnixTime(LocalDate fecha){
+        if (fecha == null) return null;
+
+        return fecha.atStartOfDay(ZoneId.of("America/Argentina/Buenos_Aires")).toEpochSecond();
+    }
+
+    public static BodegaEntity fromModel(Bodega bodega, List<MaridajeEntity> maridajeEntities){
+        BodegaEntity bodegaEntity = BodegaEntity.builder()
+                .idBodega(bodega.getIdBodega())
+                .apiUrl(bodega.getApiUrl())
+                .descripcion(bodega.getDescripcion())
+                .historia(bodega.getHistoria())
+                .nombre(bodega.getNombre())
+                .periodoActualizacion(bodega.getPeriodoActualizacion())
+                .ultimaActualizacion(toUnixTime(bodega.getUltimaActualizacion()))
+                .build();
+        List<VinoEntity> vinoEntities = bodega.getVinos().stream().map(x -> fromModel(x, bodegaEntity, maridajeEntities)).toList();
+        bodegaEntity.setVinoEntities(vinoEntities);
+        return bodegaEntity;
+    }
+
+    private static VinoEntity fromModel(Vino vino, BodegaEntity bodegaEntity, List<MaridajeEntity> maridajeEntities){
+
+
+        VinoEntity vinoEntity = VinoEntity.builder()
+                .idVino(vino.getIdVino())
+                .imagenEtiqueta(vino.getImagenEtiqueta())
+                .anada(vino.getAnada())
+                .fechaActualizacion(toUnixTime(vino.getFechaActualizacion()))
+                .nombre(vino.getNombre())
+                .notaDeCataBodega(vino.getNotaDeCataBodega())
+                .precioARS(vino.getPrecioARS())
+                .bodega(bodegaEntity)
+                .build();
+
+        vinoEntity.setVarietalEntities(vino.getVarietales().stream().map(x -> fromModel(x, vinoEntity)).toList());
+
+        // TODO maridaje
+        List<MaridajeEntity> maridajesDelVino = maridajeEntities.stream()
+                .filter(marid -> vino.getMaridajes().stream()
+                        .anyMatch(mariModel -> mariModel.getIdMaridaje() == marid.getIdMaridaje())).toList();
+        vinoEntity.setMaridajeEntities(maridajesDelVino);
+
+        return vinoEntity;
+    }
+
+    private static VarietalEntity fromModel(Varietal varietal, VinoEntity vinoEntity){
+        return VarietalEntity.builder()
+                .idVarietal(varietal.getIdVarietal())
+                .descripcion(varietal.getDescripcion())
+                .porcentajeComposicion(varietal.getPorcentajeComposicion())
+                .tipoUvaEntity(fromModel(varietal.getTipoUva()))
+                .build();
+    }
+
+    private static TipoUvaEntity fromModel(TipoUva tipoUva){
+        return TipoUvaEntity.builder()
+                .idTipoUva(tipoUva.getIdTipoUva())
+                .descripcion(tipoUva.getDescripcion())
+                .nombre(tipoUva.getNombre())
+                .build();
+    }
+
+
     public static TipoUva fromEntity(TipoUvaEntity tipoUvaEntity){
         return TipoUva.builder()
                 .idTipoUva(tipoUvaEntity.getIdTipoUva())
@@ -50,7 +141,7 @@ public class MapperPersistencia {
                 .idVino(vinoEntity.getIdVino())
                 .anada(vinoEntity.getAnada())
                 .imagenEtiqueta(vinoEntity.getImagenEtiqueta())
-                .fechaActualizacion(vinoEntity.getFechaActualizacion())
+                .fechaActualizacion(toLocalDate(vinoEntity.getFechaActualizacion()))
                 .nombre(vinoEntity.getNombre())
                 .notaDeCataBodega(vinoEntity.getNotaDeCataBodega())
                 .precioARS(vinoEntity.getPrecioARS())
@@ -69,12 +160,17 @@ public class MapperPersistencia {
                 .historia(bodegaEntity.getHistoria())
                 .nombre(bodegaEntity.getNombre())
                 .periodoActualizacion(bodegaEntity.getPeriodoActualizacion())
-                .ultimaActualizacion(bodegaEntity.getUltimaActualizacion())
+                .ultimaActualizacion(toLocalDate(bodegaEntity.getUltimaActualizacion()))
                 .build();
 
         // aca le pasamos el self/this para que se mantenga la relacion
         // no se si hacia falta igual
-        bodega.setVinos(bodegaEntity.getVinoEntities().stream().map(vinoEntity -> MapperPersistencia.fromEntity(vinoEntity, bodega)).toList());
+        List<Vino> listaVinos = new ArrayList<>();
+        //System.out.println(bodegaEntity.getVinoEntities());
+        bodegaEntity.getVinoEntities().stream().map(x -> fromEntity(x, bodega)).forEach(listaVinos::add);
+
+        bodega.setVinos(listaVinos);
+        //System.out.println(bodega.getVinos().getClass());
 
         return bodega;
     }
@@ -105,8 +201,8 @@ public class MapperPersistencia {
                                        HashMap<Integer, Bodega> bodegas, HashMap<Integer, Enofilo> enofilos){
         Siguiendo sig = Siguiendo.builder()
                 .idSiguiendo(siguiendoEntity.getIdSiguiendo())
-                .fechaInicio(siguiendoEntity.getFechaInicio())
-                .fechaFin(siguiendoEntity.getFechaFin())
+                .fechaInicio(toLocalDate(siguiendoEntity.getFechaInicio()))
+                .fechaFin(toLocalDate(siguiendoEntity.getFechaFin()))
                 .build();
 
         if (siguiendoEntity.getBodegaEntity() != null){
@@ -150,6 +246,7 @@ public class MapperPersistencia {
                 for (SiguiendoEntity siguiendoEntity : entidad.get().getSiguiendoEntities()) {
                     Optional<Siguiendo> siguiendo = siguiendos.stream()
                             .filter(sig -> sig.getIdSiguiendo() == siguiendoEntity.getIdSiguiendo()).findFirst();
+                    if (enofilo.getSiguiendos() == null) enofilo.setSiguiendos(new ArrayList<>());
                     enofilo.getSiguiendos().add(siguiendo.get());
                 }
             }

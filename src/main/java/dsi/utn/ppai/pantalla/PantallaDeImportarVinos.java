@@ -78,8 +78,8 @@ public class PantallaDeImportarVinos implements Initializable {
         if (selectedItem != null) {
             gestorImportacionVinos.tomarSeleccionBodega(selectedItem);
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Cuidado");
             alert.setHeaderText(null);
             alert.setContentText("Por favor elija una bodega.");
             alert.showAndWait();
@@ -92,7 +92,14 @@ public class PantallaDeImportarVinos implements Initializable {
         divEspera.setVisible(false);
 
         divNoHayBodegas.setVisible(true);
+    }
 
+    public void noFuncionaSistemaBodega(){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText("No se pudo conectar al sistema de bodega.");
+        alert.showAndWait();
     }
 
 

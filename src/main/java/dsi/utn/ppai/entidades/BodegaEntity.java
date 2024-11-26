@@ -32,7 +32,7 @@ public class BodegaEntity {
     @Column(name = "periodoActualizacion")
     private Integer periodoActualizacion;
     @Column(name = "ultimaActualizacion")
-    private LocalDate ultimaActualizacion;
+    private Long ultimaActualizacion;
 
     // perdon por usar fetchType Eager es que tenemos poco tiempo
     @OneToMany(mappedBy = "bodega", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)

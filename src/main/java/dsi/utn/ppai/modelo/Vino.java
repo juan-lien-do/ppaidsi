@@ -1,6 +1,5 @@
 package dsi.utn.ppai.modelo;
 
-import dsi.utn.ppai.utilidades.VinoDataHolder;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -11,7 +10,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @AllArgsConstructor
-@ToString
+//@ToString
 @Builder
 public class Vino {
     private int idVino;
@@ -63,5 +62,20 @@ public class Vino {
         this.precioARS = precioARS;
         this.varietales = varietales;
         this.bodega = bodega;
+    }
+
+    @Override
+    public String toString() {
+        return "Vino{" +
+                "idVino=" + idVino +
+                ", imagenEtiqueta='" + imagenEtiqueta + '\'' +
+                ", anada=" + anada +
+                ", fechaActualizacion=" + fechaActualizacion +
+                ", nombre='" + nombre + '\'' +
+                ", notaDeCataBodega='" + notaDeCataBodega + '\'' +
+                ", precioARS=" + precioARS +
+                ", varietales=" + varietales +
+                ", maridajes=" + maridajes +
+                '}';
     }
 }
